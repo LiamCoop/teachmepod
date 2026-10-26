@@ -1,5 +1,5 @@
-// Package web serves the site and the feed. Today it is only the skeleton the
-// rest hangs off: routing, a health check and graceful shutdown.
+// Package web serves the site and the feed. So far: a health check, the
+// private feed and the audio redirects.
 package web
 
 import (
@@ -11,16 +11,28 @@ import (
 	"time"
 
 	"github.com/jackc/pgx/v5/pgxpool"
+
+	"teachmepod/internal/storage"
 )
 
 type Server struct {
-	pool *pgxpool.Pool
-	mux  *http.ServeMux
+	pool      *pgxpool.Pool
+	store     *storage.Store
+	feedToken string
+	mux       *http.ServeMux
 }
 
-func New(pool *pgxpool.Pool) *Server {
-	s := &Server{pool: pool, mux: http.NewServeMux()}
+// New wires the routes. The feed and audio routes exist only when there is a
+// feed token and a bucket; without them every feed URL is a 404.
+func New(pool *pgxpool.Pool, store *storage.Store, feedToken string) *Server {
+	s := &Server{pool: pool, store: store, feedToken: feedToken, mux: http.NewServeMux()}
 	s.mux.HandleFunc("GET /healthz", s.healthz)
+	if store != nil && feedToken != "" {
+		s.mux.HandleFunc("GET /feed/{file}", s.feed)
+		s.mux.HandleFunc("GET /audio/{token}/{id}/{file}", s.audio)
+	} else {
+		slog.Warn("feed disabled: FEED_TOKEN or the audio bucket is not configured")
+	}
 	return s
 }
 

@@ -10,6 +10,21 @@ Railway project `teachmepod`, production environment:
 - `Postgres`: reached by `podcastd` over the private network (`DATABASE_URL` references `${{Postgres.DATABASE_URL}}`).
 - `audio` bucket (sjc): private, audio only. `podcastd` gets `AWS_ENDPOINT_URL_S3`, `AWS_REGION`, `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` and `AUDIO_BUCKET` as references to the bucket's variables.
 
+## Feed
+
+- `/feed/<FEED_TOKEN>.xml` is the private RSS feed. Subscribe to it by URL in any podcast app. `FEED_TOKEN` is a variable on the `podcastd` service; changing it rotates the feed and every audio link in it.
+- `/audio/<FEED_TOKEN>/<render id>/<slug>.mp3` redirects to a presigned bucket URL valid for 6 hours.
+- The feed lists finished renders that are either voice tests or an episode's published render.
+
+To hear a voice before the pipeline exists, add an MP3 as a test render. With the tunnel open and `DATABASE_URL` set as below, and the bucket variables copied from the `podcastd` service:
+
+```sh
+eval "$(railway variables --service podcastd --json | python3 -c 'import json,sys,shlex;v=json.load(sys.stdin);print("\n".join(f"export {k}={shlex.quote(v[k])}" for k in ["AWS_ENDPOINT_URL_S3","AWS_REGION","AWS_ACCESS_KEY_ID","AWS_SECRET_ACCESS_KEY","AUDIO_BUCKET"]))')"
+go run ./cmd/podcastd add-test-render -profile EL-1 -title "Dana + Marcus, pair 1" clip.mp3
+```
+
+It needs `ffprobe` locally to read the duration.
+
 ## Database
 
 Railway project `teachmepod`, Postgres service `Postgres` (no public proxy).
