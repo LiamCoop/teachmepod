@@ -42,6 +42,8 @@ go run ./cmd/podcastd auditions -host dana -voice Elara -stability robust   # cr
 go run ./cmd/podcastd auditions -host dana -voice Jade -line "...[excited] Oh, I love this one..." -label "[excited] tag"
 ```
 
+Once a stability is settled for a voice, put it in `show/hosts.yaml` (`stability: robust`); every run then uses it unless `-stability` overrides it.
+
 It needs the tunnel, the bucket variables (as for `add-test-render`) and `ELEVENLABS_API_KEY`, which lives on the `podcastd` service. A clip is never rendered twice for the same host, voice, model and line; changing a line renders it fresh.
 
 Review at `/auditions/<FEED_TOKEN>`: hosts grouped by pairing, a player per voice, "Play pair" to hear lead then foil, and shortlist / reject with a note per clip.

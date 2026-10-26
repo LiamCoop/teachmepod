@@ -25,7 +25,7 @@ Each pair is built on a disagreement the two hosts can have honestly, episode af
 
 | Host | Cast voice | Voice ID | From the audition |
 | --- | --- | --- | --- |
-| Dana | Jade – Upbeat and Natural | `g7LVvkPWALzPxOQbF6OE` | Alternate; Elara rejected |
+| Dana | Jade – Upbeat and Natural | `g7LVvkPWALzPxOQbF6OE` | Alternate. Elara was more excited but shaky at default stability; at robust she's steady and still excited, so she's back in contention |
 | Marcus | Eddie – Natural and Helpful | `l7kNoIfnJKPg7779LI2t` | Alternate; Lawrence rejected ("sounds very AI, and the sound quality is not very good") |
 | Maya | Elowen – Upbeat Modern Narrator | `dvbL7qkNGZY1IqPGZAjM` | First pick; Jade is Dana's |
 | Jules | Maisie – Friendly Casual Neighbor | `QtY3JBOUKEB5xzrRfOKc` | First pick |
@@ -35,6 +35,8 @@ Each pair is built on a disagreement the two hosts can have honestly, episode af
 | Kofi | Darian – Warm Grounded Storyteller | `gOupLcAkjEnguROwi4oS` | Alternate |
 | Rachel | Talia – Warm Soft Guide | `OZ0L6eISlOejga3XjDFt` | First pick; Maisie also shortlisted but went to Jules |
 | Sam | Callum – Husky Trickster | `fs2OqxduwXgp9foh2xjK` | First pick; Jade rejected |
+
+**Stability.** v3's stability setting changes a voice a lot. Elara wobbles at the default (natural) and is steady at robust, so `show/hosts.yaml` records `stability: robust` against her and every render of her uses it. Robust follows audio tags less closely, which matters in dialogue.
 
 **Names chosen for the ear.** Every scene says the hosts' names aloud, so each has one pronunciation TTS can't get wrong: Inès became Claire and Mei became Maya after auditions. New cast members should pass the same test.
 

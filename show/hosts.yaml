@@ -5,7 +5,8 @@
 #
 # audition_line and elevenlabs are the voice-casting shortlist from docs/hosts.md;
 # `podcastd auditions` renders every line in every listed voice. `cast: true`
-# marks the voice each host was cast in after auditions.
+# marks the voice each host was cast in after auditions; `stability` is the v3
+# setting a voice needs, used by auditions and renders unless overridden.
 
 hosts:
   - slug: priya
@@ -61,7 +62,8 @@ hosts:
     voice_casting: Bright, clear mid-range, measured pace that speeds up when she's excited.
     audition_line: 'So there''s a 2007 paper that says, roughly, your clocks are lying to you, and they''re lying in a very specific way. Two nodes, both certain it''s 10:00:01, both writing to the same key. And whoever "wins" depends on drift you never measured. Oh, I love this one, because the fix isn''t a better clock, it''s admitting you never had one. Which is why "eventually consistent" isn''t a design. It''s a confession.'
     elevenlabs:
-      - {pick: first, name: 'Elara – Crisp Pro Narrator', id: WQP7cQUF5aAS6Axh5yaa}
+      # Shaky at the default stability; steady and still excited at robust.
+      - {pick: first, name: 'Elara – Crisp Pro Narrator', id: WQP7cQUF5aAS6Axh5yaa, stability: robust}
       - {pick: alternate, name: 'Jade – Upbeat and Natural', id: g7LVvkPWALzPxOQbF6OE, cast: true}
 
   - slug: theo

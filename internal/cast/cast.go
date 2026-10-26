@@ -36,6 +36,9 @@ type VoiceOption struct {
 	Name string `yaml:"name"`
 	ID   string `yaml:"id"`
 	Cast bool   `yaml:"cast"` // the voice this host was cast in
+	// Stability is the v3 setting this voice needs (creative, natural or
+	// robust); empty for ElevenLabs' default.
+	Stability string `yaml:"stability"`
 }
 
 // CastVoice returns the ElevenLabs voice the host was cast in, if any.
@@ -94,6 +97,9 @@ func (c *Cast) validate() error {
 			}
 			if v.ID == "" || v.Name == "" || (v.Pick != "first" && v.Pick != "alternate") {
 				return fmt.Errorf("host %s: elevenlabs voice %+v needs an id, a name and pick first or alternate", h.Slug, v)
+			}
+			if v.Stability != "" && v.Stability != "creative" && v.Stability != "natural" && v.Stability != "robust" {
+				return fmt.Errorf("host %s: voice %s: stability %q must be creative, natural or robust", h.Slug, v.Name, v.Stability)
 			}
 			if v.Pick == "first" {
 				firsts++
