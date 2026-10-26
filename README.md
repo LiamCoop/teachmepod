@@ -16,6 +16,7 @@ go run ./cmd/podcastd setup   # migrate + seed
 ```
 
 - `migrations/` holds the schema (goose, embedded in the binary). `00002` is the knowledge graph from [ADR-001](adrs/ADR-001%20Topics%20as%20a%20knowledge%20graph.md).
+- Text artifacts (dossiers, scripts, …) live in the `artifacts` table (`00004`); the bucket holds audio only.
 - `show/hosts.yaml` is the cast and pairings. It is not stored in Postgres; topics and episodes refer to pairings and guests by slug.
 - `show/seed.yaml` holds the initial user, backlog and bake-off voice profiles; `seed` inserts them only if missing.
 

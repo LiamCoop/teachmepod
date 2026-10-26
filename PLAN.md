@@ -31,14 +31,15 @@ You add topics and feedback through the site; the workers turn a topic into audi
 
 ## Data model
 
-Postgres is the backlog, the pipeline state and the job queue. Large artifacts (dossiers, scripts, audio) live in object storage and are referenced by key. A script and its renders are separate rows, so one script can be rendered in many voices. That is the bake-off.
+Postgres is the backlog, the pipeline state and the job queue. Text artifacts (dossiers, outlines, beats, scripts, review reports, show notes, transcripts) are a few kilobytes each and live in an `artifacts` table, so database backups cover them. Object storage holds audio only, which can always be re-rendered from a script. A script and its renders are separate rows, so one script can be rendered in many voices. That is the bake-off.
 
 | Table | Purpose | Key columns |
 | --- | --- | --- |
 | `topics` | The backlog | title, angle, baseline (what you already know), depth, priority, status, series, created\_at |
-| `episodes` | One per topic attempt | topic\_id, status, title, slug, script\_key, prompt\_version, published\_render\_id, published\_at |
-| `stage_runs` | Every stage execution | episode\_id, stage, attempt, status, input\_hash, output\_key, tokens\_in, tokens\_out, cost\_cents, error, started\_at, finished\_at |
+| `episodes` | One per topic attempt | topic\_id, status, title, slug, script\_artifact\_id, prompt\_version, published\_render\_id, published\_at |
+| `stage_runs` | Every stage execution | episode\_id, stage, attempt, status, input\_hash, output\_artifact\_id, tokens\_in, tokens\_out, cost\_cents, error, started\_at, finished\_at |
 | `voice_profiles` | A vendor + voice pairing | name, vendor, model, voices (json: host → voice ID), settings (json) |
+| `artifacts` | Text outputs of the stages | episode\_id, kind (dossier, outline, beats, script, review, show\_notes, transcript), media\_type, body, sha256 |
 | `renders` | One audio rendering of a script | episode\_id, voice\_profile\_id, status, audio\_key, duration\_s, chapters (json), wer, cost\_cents, is\_test |
 | `feedback` | Your reactions after listening | render\_id, kind (cringe, wrong, deeper, too basic, rating), at\_seconds, note |
 | `show_memory` | Facts the hosts can call back to | episode\_id, line ("we covered Raft leader election") |
@@ -49,7 +50,7 @@ Postgres is the backlog, the pipeline state and the job queue. Large artifacts (
 
 ## Pipeline stages
 
-Each stage is a River job that reads its inputs from object storage, writes one output, and records a `stage_runs` row. A stage skips itself when an output already exists for the same `input_hash` (hash of upstream outputs + prompt version). Reruns are cheap and resumable, and voice tests reuse the script without paying for research again.
+Each stage is a River job that reads its inputs from `artifacts`, writes one output (an artifact, or audio in the bucket for render and mix), and records a `stage_runs` row. A stage skips itself when an output already exists for the same `input_hash` (hash of upstream outputs + prompt version). Reruns are cheap and resumable, and voice tests reuse the script without paying for research again.
 
 1. **Pick.** Take the top `queued` topic by priority, or a topic you trigger by hand. Status moves to `researching`.
 2. **Research → `dossier.json`.** A lead agent splits the topic into 4–6 subtopics; a research agent per subtopic uses web search. Source priority: papers and engineering blogs from teams that run the systems in question, then official docs, general articles last. Spending a little more on research for quality is fine. The dossier holds:
@@ -137,7 +138,7 @@ The site is server-rendered Go templates in the same binary as the worker: no se
 | Episode | Player, transcript, chapters, sources; feedback form with a timestamp field ("cringe at 12:30") and "go deeper on…", which creates a backlog topic |
 | Feed | `/feed/<secret-token>.xml`, RSS 2.0 with Podcasting 2.0 `podcast:transcript` and `podcast:chapters` |
 
-- Railway buckets have no public URLs, so feed enclosures point at stable app URLs (/audio/\<token>/\<slug>.mp3) that redirect to a short-lived presigned URL. Downloads come straight from the bucket with free egress. The feed token can be rotated if it leaks.
+- Railway buckets have no public URLs, so feed enclosures point at stable app URLs (/audio/\<token>/\<slug>.mp3) that redirect to a presigned URL valid for a few hours, so long downloads and resumes don't break; an expired link just means the app asks the stable URL again. Downloads come straight from the bucket with free egress. The feed token can be rotated if it leaks.
 - Any podcast app that subscribes by URL works, so nothing goes to Apple or Spotify directories.
 - Show notes link the episode page, so sources and the transcript are one tap away during a walk.
 
@@ -149,7 +150,8 @@ One Go binary, one Postgres, one object-storage bucket. River jobs chain the sta
 
 - `podcastd serve` runs the site, the feed and the River workers in one process.
 - Hosting: Railway, one service plus Railway Postgres.
-- Object storage: a Railway bucket, private and S3-compatible. Railway doesn't back buckets up automatically; audio can be re-rendered from a script, so only scripts and dossiers need a copy elsewhere.
+- Object storage: a Railway bucket, private and S3-compatible, for audio only. Railway doesn't back buckets up, and doesn't need to here: audio can be re-rendered from a script.
+- Backups: Railway's scheduled Postgres volume backups, which cover the backlog, the graph and every text artifact.
 - ffmpeg in the container image.
 - Secrets: Anthropic, TTS vendor and storage keys as environment variables.
 - Agent stages call the Claude API from Go. Research uses the API's web search tool; heavier stages use the strongest model.
