@@ -2,6 +2,14 @@
 
 A private two-host technical podcast generated from a backlog. See [PLAN.md](PLAN.md).
 
+## Deployment
+
+Railway project `teachmepod`, production environment:
+
+- `podcastd`: builds the `Dockerfile` from `main` on GitHub and redeploys on push, but only when code, migrations, `show/` or the `Dockerfile` change (docs-only pushes don't redeploy). Health check `/healthz`. Public at https://podcastd-production.up.railway.app.
+- `Postgres`: reached by `podcastd` over the private network (`DATABASE_URL` references `${{Postgres.DATABASE_URL}}`).
+- `audio` bucket (sjc): private, audio only. `podcastd` gets `AWS_ENDPOINT_URL_S3`, `AWS_REGION`, `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` and `AUDIO_BUCKET` as references to the bucket's variables.
+
 ## Database
 
 Railway project `teachmepod`, Postgres service `Postgres` (no public proxy).
