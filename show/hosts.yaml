@@ -4,7 +4,8 @@
 # profiles of the hosts in that episode.
 #
 # audition_line and elevenlabs are the voice-casting shortlist from docs/hosts.md;
-# `podcastd auditions` renders every line in every listed voice.
+# `podcastd auditions` renders every line in every listed voice. `cast: true`
+# marks the voice each host was cast in after auditions.
 
 hosts:
   - slug: priya
@@ -23,7 +24,7 @@ hosts:
     voice_casting: Lower-mid register, unhurried, deadpan delivery that makes the jokes land late.
     audition_line: '4:12am. The queue depth graph goes vertical. Every service is retrying. Instantly. Forever. Because someone decided backoff was "a nice to have." So now we''re not having an outage. We''re hosting one. For ourselves. On-call opens the runbook. The runbook says, and I quote, "check the dashboard." Which dashboard. We have forty. Anyway. Two questions for any design. What pages you. And how long until it stops.'
     elevenlabs:
-      - {pick: first, name: 'Florence – Atmospheric Storyteller', id: 22N9cF8z0o7y23njdyaY}
+      - {pick: first, name: 'Florence – Atmospheric Storyteller', id: 22N9cF8z0o7y23njdyaY, cast: true}
 
   - slug: marcus
     name: Marcus
@@ -42,7 +43,7 @@ hosts:
     audition_line: 'Here''s my hot take, and I''m going to say it with my whole chest: the service mesh is dead. Done. We spent three years drawing boxes and arrows, and what did we get? Forty services, one database, and a deploy that needs six people on a call. I lived it! I championed it! ...Dana''s already got a paper open, hasn''t she. Okay. Fine. Show me the number. If it''s a real number, I''ll take it.'
     elevenlabs:
       - {pick: first, name: 'Lawrence – Bright and Informative', id: ktkP7Nsj67dw2zcplQYt}
-      - {pick: alternate, name: 'Eddie – Natural and Helpful', id: l7kNoIfnJKPg7779LI2t}
+      - {pick: alternate, name: 'Eddie – Natural and Helpful', id: l7kNoIfnJKPg7779LI2t, cast: true}
 
   - slug: dana
     name: Dana
@@ -61,28 +62,28 @@ hosts:
     audition_line: 'So there''s a 2007 paper that says, roughly, your clocks are lying to you, and they''re lying in a very specific way. Two nodes, both certain it''s 10:00:01, both writing to the same key. And whoever "wins" depends on drift you never measured. Oh, I love this one, because the fix isn''t a better clock, it''s admitting you never had one. Which is why "eventually consistent" isn''t a design. It''s a confession.'
     elevenlabs:
       - {pick: first, name: 'Elara – Crisp Pro Narrator', id: WQP7cQUF5aAS6Axh5yaa}
-      - {pick: alternate, name: 'Jade – Upbeat and Natural', id: g7LVvkPWALzPxOQbF6OE}
+      - {pick: alternate, name: 'Jade – Upbeat and Natural', id: g7LVvkPWALzPxOQbF6OE, cast: true}
 
   - slug: theo
     name: Theo
     pronouns: he/him
     role: host
     background: Ten years in game development (engine and tools), now a full-stack generalist at a product company. Self-taught on the web side.
-    in_conversation: The curious foil to Inès. Asks the question a smart listener is thinking, right when they're thinking it.
+    in_conversation: The curious foil to Claire. Asks the question a smart listener is thinking, right when they're thinking it.
     how_they_talk: Relaxed, wondering out loud, thinks in analogies from game loops, frame budgets and entity systems. Admits confusion without embarrassment.
     hills:
       - If you can't draw it, you don't understand it.
       - A 16ms frame budget is the best teacher of performance ever invented.
-    blind_spot: Analogies that go one step too far; Inès rates them.
+    blind_spot: Analogies that go one step too far; Claire rates them.
     never_says: '"Obviously."'
     voice_casting: Easygoing, slightly lower register, natural laugh.
-    audition_line: 'Okay, so, wait. If I''m hearing this right, React''s render is kind of like the update step in a game loop? Every frame, you look at the world, you figure out what changed, you only redraw that. And if your update takes longer than sixteen milliseconds, the player feels it. So a slow render is basically... dropping frames on a form. Hah. How''s that one, Inès? Seven? I''ll take seven. That''s my best this month.'
+    audition_line: 'Okay, so, wait. If I''m hearing this right, React''s render is kind of like the update step in a game loop? Every frame, you look at the world, you figure out what changed, you only redraw that. And if your update takes longer than sixteen milliseconds, the player feels it. So a slow render is basically... dropping frames on a form. Hah. How''s that one, Claire? Seven? I''ll take seven. That''s my best this month.'
     elevenlabs:
-      - {pick: first, name: 'Warren – Effortless and Cool', id: 7QN34D2r3hCNwbOYIeK0}
+      - {pick: first, name: 'Warren – Effortless and Cool', id: 7QN34D2r3hCNwbOYIeK0, cast: true}
       - {pick: alternate, name: 'Sawyer – Midnight Storyteller', id: 8dEUmyPMdDdK91vboYih}
 
-  - slug: ines
-    name: Inès
+  - slug: claire
+    name: Claire
     pronouns: she/her
     role: host
     background: Frontend performance specialist; led a rendering rewrite at a large e-commerce site and contributes to open-source React tooling.
@@ -97,7 +98,7 @@ hosts:
     voice_casting: Clear, articulate, mid-to-high register, quick but never rushed.
     audition_line: 'Seven. Generous, but the frame-budget part was genuinely good. Here''s what''s actually happening: the click lands, React re-renders the whole product grid, two hundred and forty milliseconds of work, and the user sees nothing change for a quarter of a second. Nobody fixed it with useMemo. We measured first. Ninety percent of that time was one component formatting prices on every render. Measure, then memoize. Never the other way round.'
     elevenlabs:
-      - {pick: first, name: 'Alicia – Polished Global Anchor', id: BFd5oBc2DDna33pSi4Gf}
+      - {pick: first, name: 'Alicia – Polished Global Anchor', id: BFd5oBc2DDna33pSi4Gf, cast: true}
       - {pick: alternate, name: 'Jade – Upbeat and Natural', id: g7LVvkPWALzPxOQbF6OE}
 
   - slug: kofi
@@ -117,7 +118,7 @@ hosts:
     audition_line: 'I''ve seen this before. At the bank, we had an enterprise service bus, and it was going to connect everything. And it did. It connected every team''s problems into one team''s problem. What''s different now? The tooling is better. Genuinely. But the question is the same one Priya asks second. She asks what pages you. I ask: who owns that? Because a migration without an owner... is a rumour.'
     elevenlabs:
       - {pick: first, name: 'Wyatt – Seasoned Mentor', id: FrS6cKLB1wg4WYgPa9GW}
-      - {pick: alternate, name: 'Darian – Warm Grounded Storyteller', id: gOupLcAkjEnguROwi4oS}
+      - {pick: alternate, name: 'Darian – Warm Grounded Storyteller', id: gOupLcAkjEnguROwi4oS, cast: true}
       - {pick: alternate, name: 'Baxter – Dry Calm Aussie', id: jSuBIjxMKhqIfb0wCK1F}
 
   - slug: rachel
@@ -136,12 +137,12 @@ hosts:
     voice_casting: Warm mid-range, friendly but firm, conversational pace.
     audition_line: 'Okay, I love this, but let me reframe it. Say I''m a team of six, with one on-call rotation, and this lands in my architecture review on Monday. What do I actually write down? Because if nobody on the team can explain the design to a new hire in ten minutes, it''s not the right design for us, however elegant it is. So: what''s reversible, what isn''t, and who signs off on the part that isn''t.'
     elevenlabs:
-      - {pick: first, name: 'Talia – Warm Soft Guide', id: OZ0L6eISlOejga3XjDFt}
+      - {pick: first, name: 'Talia – Warm Soft Guide', id: OZ0L6eISlOejga3XjDFt, cast: true}
       - {pick: alternate, name: 'Maisie – Friendly Casual Neighbor', id: QtY3JBOUKEB5xzrRfOKc}
 
   - slug: sam
     name: Sam
-    pronouns: they/them
+    pronouns: he/him
     role: guest
     background: Application security engineer; spent years in a red team before moving to a product security team.
     in_conversation: Guest. Finds the attack in whatever the hosts just designed, and enjoys it.
@@ -152,14 +153,14 @@ hosts:
       - Secrets in environment variables end up in logs.
     blind_spot: Everything is a threat model; can derail a performance conversation.
     never_says: '"Nobody would ever do that."'
-    voice_casting: Lively, quick, playful; cast for contrast with whichever pair they join.
+    voice_casting: Lively, quick, playful; cast for contrast with whichever pair he joins.
     audition_line: 'Ooh, okay, this is a lovely API. So I''m a user, I''m logged in, all very legitimate. I fetch my invoice: slash invoices slash forty. And then, just out of curiosity, I change it to forty-one. And... hello, someone else''s invoice! The login was perfect. The authentication was flawless. Nobody checked whether invoice forty-one was mine. That''s authorization, and it''s where all the fun bugs live.'
     elevenlabs:
-      - {pick: first, name: 'Callum – Husky Trickster', id: fs2OqxduwXgp9foh2xjK}
+      - {pick: first, name: 'Callum – Husky Trickster', id: fs2OqxduwXgp9foh2xjK, cast: true}
       - {pick: alternate, name: 'Jade – Upbeat and Natural', id: g7LVvkPWALzPxOQbF6OE}
 
-  - slug: mei
-    name: Mei
+  - slug: maya
+    name: Maya
     pronouns: she/her
     role: host
     background: Infrastructure engineer at a hyperscale company for a decade (rate limiters, API gateways, and a global caching layer). Now consults for growing companies.
@@ -174,26 +175,26 @@ hosts:
     voice_casting: Bright, energetic, mid register, fast talker who slows down for the important bit.
     audition_line: 'So the cache expires at exactly midnight, right, and at a billion requests a day... okay, okay, Jules, I see you counting, that''s one. But listen, every client misses at the same instant and hammers the database together. A thundering herd. We fixed it with jitter and request coalescing. And here''s the important bit. Slowly. Every write endpoint takes an idempotency key. Not optional. Not later. From day one.'
     elevenlabs:
-      - {pick: first, name: 'Elowen – Upbeat Modern Narrator', id: dvbL7qkNGZY1IqPGZAjM}
+      - {pick: first, name: 'Elowen – Upbeat Modern Narrator', id: dvbL7qkNGZY1IqPGZAjM, cast: true}
       - {pick: alternate, name: 'Jade – Upbeat and Natural', id: g7LVvkPWALzPxOQbF6OE}
 
   - slug: jules
     name: Jules
-    pronouns: they/them
+    pronouns: she/her
     role: host
     background: Indie builder; runs two profitable small products alone after years at agencies. Ships weekly.
-    in_conversation: Foil to Mei. Asks whether this matters for a five-person team, and what the cheapest version that works is.
-    how_they_talk: Casual, funny, concrete about cost and time ("that's a weekend, tops"). Genuinely impressed when Mei's scale story applies to them.
+    in_conversation: Foil to Maya. Asks whether this matters for a five-person team, and what the cheapest version that works is.
+    how_they_talk: Casual, funny, concrete about cost and time ("that's a weekend, tops"). Genuinely impressed when Maya's scale story applies to her.
     hills:
       - Postgres can do it.
       - Boring tech is a competitive advantage.
       - Every dependency is a liability with a changelog.
-    blind_spot: Underestimates problems they haven't hit yet; Mei calls it out.
+    blind_spot: Underestimates problems she hasn't hit yet; Maya calls it out.
     never_says: '"Enterprise-grade."'
-    voice_casting: Easy, conversational, slightly higher energy than Mei; contrast in timbre matters more than gender.
-    audition_line: 'That''s two "billion requests," by the way. I''m keeping a tally. Look, I run two products with about four thousand users combined. Do I need a global caching layer? No. I need Postgres and a cron job, and that''s a weekend, tops. ...Although. The idempotency key thing. I got double-charged by my own checkout last month. So, fine, Mei. That one I''m stealing. Everything else stays boring.'
+    voice_casting: Easy, conversational, slightly higher energy than Maya; contrast in timbre matters more than gender.
+    audition_line: 'That''s two "billion requests," by the way. I''m keeping a tally. Look, I run two products with about four thousand users combined. Do I need a global caching layer? No. I need Postgres and a cron job, and that''s a weekend, tops. ...Although. The idempotency key thing. I got double-charged by my own checkout last month. So, fine, Maya. That one I''m stealing. Everything else stays boring.'
     elevenlabs:
-      - {pick: first, name: 'Maisie – Friendly Casual Neighbor', id: QtY3JBOUKEB5xzrRfOKc}
+      - {pick: first, name: 'Maisie – Friendly Casual Neighbor', id: QtY3JBOUKEB5xzrRfOKc, cast: true}
       - {pick: alternate, name: 'Eddie – Natural and Helpful', id: l7kNoIfnJKPg7779LI2t}
 
 pairings:
@@ -204,19 +205,19 @@ pairings:
     topic_areas: [microservices, distributed systems, architecture patterns, consistency]
     running_bit: Marcus declares something dead; Dana finds the paper where it's thriving.
 
-  - slug: mei-jules
-    lead: mei
+  - slug: maya-jules
+    lead: maya
     foil: jules
     friction: Scale vs. "just ship it"
     topic_areas: [API design, databases, caching, infrastructure, platform teams]
     running_bit: '"At a billion requests a day…" — Jules counts how many times she says it.'
 
-  - slug: ines-theo
-    lead: ines
+  - slug: claire-theo
+    lead: claire
     foil: theo
     friction: Precision vs. curiosity
     topic_areas: [React, rendering, browsers, frontend performance, state management]
-    running_bit: Theo's game-engine analogies, which Inès rates out of ten.
+    running_bit: Theo's game-engine analogies, which Claire rates out of ten.
 
   - slug: priya-kofi
     lead: priya

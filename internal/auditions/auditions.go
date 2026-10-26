@@ -22,6 +22,7 @@ import (
 type Options struct {
 	Host   string // only this host; empty for all
 	Model  string
+	Cast   bool // only each host's cast voice
 	DryRun bool // list what would be rendered and its size, spend nothing
 	Out    io.Writer
 }
@@ -49,6 +50,9 @@ func Generate(ctx context.Context, pool *pgxpool.Pool, store *storage.Store, tts
 		sum := sha256.Sum256([]byte(h.AuditionLine))
 		sha := hex.EncodeToString(sum[:])
 		for _, v := range h.ElevenLabs {
+			if o.Cast && !v.Cast {
+				continue
+			}
 			var exists bool
 			err := pool.QueryRow(ctx, `
 				SELECT EXISTS (SELECT 1 FROM voice_auditions

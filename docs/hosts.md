@@ -4,16 +4,16 @@ Ten hosts, four standing pairings. Each episode uses one pairing, chosen by topi
 
 ## Pairings
 
-Each pair is built on a disagreement the two hosts can have honestly, episode after episode. In three of the four, the woman is the lead expert.
+Each pair is built on a disagreement the two hosts can have honestly, episode after episode. In every pair, a woman is the lead expert.
 
 | Pair | Lead | Foil | The friction | Topics | Running bit |
 | --- | --- | --- | --- | --- | --- |
 | Dana + Marcus | Dana | Marcus | Evidence vs. the hot take | Microservices, distributed systems, architecture patterns, consistency | Marcus declares something dead; Dana finds the paper where it's thriving |
-| Mei + Jules | Mei | Jules | Scale vs. "just ship it" | API design, databases, caching, infrastructure, platform teams | "At a billion requests a day…" — Jules counts how many times she says it |
-| Inès + Theo | Inès | Theo | Precision vs. curiosity | React, rendering, browsers, frontend performance, state management | Theo's game-engine analogies, which Inès rates out of ten |
+| Maya + Jules | Maya | Jules | Scale vs. "just ship it" | API design, databases, caching, infrastructure, platform teams | "At a billion requests a day…" — Jules counts how many times she says it |
+| Claire + Theo | Claire | Theo | Precision vs. curiosity | React, rendering, browsers, frontend performance, state management | Theo's game-engine analogies, which Claire rates out of ten |
 | Priya + Kofi | Priya | Kofi | What breaks vs. who owns it | Reliability, observability, incidents, team topology, migrations | Priya's "what pages you?" and Kofi's "who owns that?" as a two-question test |
 
-**First test topics:** microservices → Dana + Marcus; API design → Mei + Jules; intermediate/advanced React → Inès + Theo.
+**First test topics:** microservices → Dana + Marcus; API design → Maya + Jules; intermediate/advanced React → Claire + Theo.
 
 **Guests:** Rachel joins when a topic needs a "what do I do on Monday" grounding. Sam joins whenever a design has an attack surface worth exploring. A guest takes a third of the airtime at most.
 
@@ -21,15 +21,32 @@ Each pair is built on a disagreement the two hosts can have honestly, episode af
 
 **Deadline that shapes every pick.** ElevenLabs retires all of its Default voices (Rachel, Adam, Brian, Sarah and the rest of the classic set) on December 31, 2026, and accounts created after March 2026 can't use them at all. Every first pick below is from the new permanent lineup ElevenLabs published as replacements, so the show won't lose a host's voice at year end.
 
-Picks are matched from ElevenLabs' own voice descriptors against each host's casting notes. They are a shortlist to audition, not a final cast.
+**Cast, after auditions (Oct 26, 2026).** Every host was auditioned on `eleven_v3` in the first pick and alternates below. No voice is shared between hosts.
+
+| Host | Cast voice | Voice ID | From the audition |
+| --- | --- | --- | --- |
+| Dana | Jade – Upbeat and Natural | `g7LVvkPWALzPxOQbF6OE` | Alternate; Elara rejected |
+| Marcus | Eddie – Natural and Helpful | `l7kNoIfnJKPg7779LI2t` | Alternate; Lawrence rejected ("sounds very AI, and the sound quality is not very good") |
+| Maya | Elowen – Upbeat Modern Narrator | `dvbL7qkNGZY1IqPGZAjM` | First pick; Jade is Dana's |
+| Jules | Maisie – Friendly Casual Neighbor | `QtY3JBOUKEB5xzrRfOKc` | First pick |
+| Claire | Alicia – Polished Global Anchor | `BFd5oBc2DDna33pSi4Gf` | First pick |
+| Theo | Warren – Effortless and Cool | `7QN34D2r3hCNwbOYIeK0` | First pick |
+| Priya | Florence – Atmospheric Storyteller | `22N9cF8z0o7y23njdyaY` | First pick; still a placeholder until Voice Design is tried |
+| Kofi | Darian – Warm Grounded Storyteller | `gOupLcAkjEnguROwi4oS` | Alternate |
+| Rachel | Talia – Warm Soft Guide | `OZ0L6eISlOejga3XjDFt` | First pick; Maisie also shortlisted but went to Jules |
+| Sam | Callum – Husky Trickster | `fs2OqxduwXgp9foh2xjK` | First pick; Jade rejected |
+
+**Names chosen for the ear.** Every scene says the hosts' names aloud, so each has one pronunciation TTS can't get wrong: Inès became Claire and Mei became Maya after auditions. New cast members should pass the same test.
+
+**Original shortlist.** Picks are matched from ElevenLabs' own voice descriptors against each host's casting notes. They are a shortlist to audition, not a final cast.
 
 | Host | Role | First pick | Voice ID | Alternate | Fit |
 | --- | --- | --- | --- | --- | --- |
 | Dana | Lead | Elara – Crisp Pro Narrator | `WQP7cQUF5aAS6Axh5yaa` | Jade – Upbeat and Natural (`g7LVvkPWALzPxOQbF6OE`) | Precise and clear; check she can get audibly excited |
 | Marcus | Foil | Lawrence – Bright and Informative | `ktkP7Nsj67dw2zcplQYt` | Eddie – Natural and Helpful (`l7kNoIfnJKPg7779LI2t`) | Energetic and warm; faster contrast to Dana |
-| Mei | Lead | Elowen – Upbeat Modern Narrator | `dvbL7qkNGZY1IqPGZAjM` | Jade | Bright, fast, numbers-first |
+| Maya | Lead | Elowen – Upbeat Modern Narrator | `dvbL7qkNGZY1IqPGZAjM` | Jade | Bright, fast, numbers-first |
 | Jules | Foil | Maisie – Friendly Casual Neighbor | `QtY3JBOUKEB5xzrRfOKc` | Eddie | Casual and funny; switch to Eddie if Maisie sits too close to Elowen |
-| Inès | Lead | Alicia – Polished Global Anchor | `BFd5oBc2DDna33pSi4Gf` | Jade | Crisp, confident, higher than Theo |
+| Claire | Lead | Alicia – Polished Global Anchor | `BFd5oBc2DDna33pSi4Gf` | Jade | Crisp, confident, higher than Theo |
 | Theo | Foil | Warren – Effortless and Cool | `7QN34D2r3hCNwbOYIeK0` | Sawyer – Midnight Storyteller (`8dEUmyPMdDdK91vboYih`) | Relaxed, lower register, thinks out loud |
 | Priya | Lead | Florence – Atmospheric Storyteller | `22N9cF8z0o7y23njdyaY` | Voice Library search or Voice Design | Weakest match; nothing in the new set reads as deadpan |
 | Kofi | Foil | Wyatt – Seasoned Mentor | `FrS6cKLB1wg4WYgPa9GW` | Darian – Warm Grounded Storyteller (`gOupLcAkjEnguROwi4oS`) | Calm and steady; Baxter – Dry Calm Aussie (`jSuBIjxMKhqIfb0wCK1F`) if you want the wryness |
@@ -40,9 +57,9 @@ Picks are matched from ElevenLabs' own voice descriptors against each host's cas
 
 **Audition plan.**
 
-1. **Bake-off first.** ElevenLabs' entry in the vendor bake-off is Elara (Dana) + Lawrence (Marcus) on the microservices scene. Cast the other eight only if ElevenLabs wins.
+1. **Bake-off first.** ElevenLabs' entry in the vendor bake-off is Jade (Dana) + Eddie (Marcus) on the microservices scene. All ten hosts are already cast on ElevenLabs; another vendor that wins the bake-off needs its own casting.
 2. **Test on the production model.** The same voice can sound different across models, so audition on whichever model and mode (likely dialogue mode for two speakers) the pipeline will generate episodes with.
-3. **Audition in pairs.** Play each pair's lines back to back. The main collision risks are Mei/Jules and Dana/Inès.
+3. **Audition in pairs.** Play each pair's lines back to back. The main collision risks are Maya/Jules and Dana/Claire.
 4. **Check the credit multiplier.** When adding each voice to My Voices, confirm it isn't billed at a higher rate before building cost estimates on it.
 
 ## Profiles 1–5
@@ -89,17 +106,17 @@ Picks are matched from ElevenLabs' own voice descriptors against each host's cas
 ### Theo
 
 - **Background:** Ten years in game development (engine and tools), now a full-stack generalist at a product company. Self-taught on the web side.
-- **In conversation:** The curious foil to Inès. Asks the question a smart listener is thinking, right when they're thinking it.
+- **In conversation:** The curious foil to Claire. Asks the question a smart listener is thinking, right when they're thinking it.
 - **How he talks:** Relaxed, wondering out loud, thinks in analogies from game loops, frame budgets and entity systems. Admits confusion without embarrassment.
 - **Hills he'll die on:** If you can't draw it, you don't understand it. A 16ms frame budget is the best teacher of performance ever invented.
-- **Blind spot:** Analogies that go one step too far; Inès rates them.
+- **Blind spot:** Analogies that go one step too far; Claire rates them.
 - **Never says:** "Obviously."
 - **Voice casting:** Easygoing, slightly lower register, natural laugh.
 - **ElevenLabs:** Warren – Effortless and Cool (`7QN34D2r3hCNwbOYIeK0`). Alternate: Sawyer – Midnight Storyteller (`8dEUmyPMdDdK91vboYih`).
 - **Audition line:**
-  > Okay, so, wait. If I'm hearing this right, React's render is kind of like the update step in a game loop? Every frame, you look at the world, you figure out what changed, you only redraw that. And if your update takes longer than sixteen milliseconds, the player feels it. So a slow render is basically... dropping frames on a form. Hah. How's that one, Inès? Seven? I'll take seven. That's my best this month.
+  > Okay, so, wait. If I'm hearing this right, React's render is kind of like the update step in a game loop? Every frame, you look at the world, you figure out what changed, you only redraw that. And if your update takes longer than sixteen milliseconds, the player feels it. So a slow render is basically... dropping frames on a form. Hah. How's that one, Claire? Seven? I'll take seven. That's my best this month.
 
-### Inès
+### Claire
 
 - **Background:** Frontend performance specialist; led a rendering rewrite at a large e-commerce site and contributes to open-source React tooling.
 - **In conversation:** Lead expert for React and frontend. Explains what the browser and the reconciler are actually doing, step by step.
@@ -144,16 +161,16 @@ Picks are matched from ElevenLabs' own voice descriptors against each host's cas
 
 - **Background:** Application security engineer; spent years in a red team before moving to a product security team.
 - **In conversation:** Guest. Finds the attack in whatever the hosts just designed, and enjoys it.
-- **How they talk:** Cheerful, quick, a little mischievous. Walks through attacks as small stories ("so I'm a user, and I change this ID to 41…").
-- **Hills they'll die on:** Authorization bugs outnumber authentication bugs. Every webhook is an inbound attack surface. Secrets in environment variables end up in logs.
+- **How he talks:** Cheerful, quick, a little mischievous. Walks through attacks as small stories ("so I'm a user, and I change this ID to 41…").
+- **Hills he'll die on:** Authorization bugs outnumber authentication bugs. Every webhook is an inbound attack surface. Secrets in environment variables end up in logs.
 - **Blind spot:** Everything is a threat model; can derail a performance conversation.
 - **Never says:** "Nobody would ever do that."
-- **Voice casting:** Lively, quick, playful; cast for contrast with whichever pair they join.
+- **Voice casting:** Lively, quick, playful; cast for contrast with whichever pair he joins.
 - **ElevenLabs:** Callum – Husky Trickster (`fs2OqxduwXgp9foh2xjK`). Alternate: Jade – Upbeat and Natural (`g7LVvkPWALzPxOQbF6OE`).
 - **Audition line:**
   > Ooh, okay, this is a lovely API. So I'm a user, I'm logged in, all very legitimate. I fetch my invoice: slash invoices slash forty. And then, just out of curiosity, I change it to forty-one. And... hello, someone else's invoice! The login was perfect. The authentication was flawless. Nobody checked whether invoice forty-one was *mine*. That's authorization, and it's where all the fun bugs live.
 
-### Mei
+### Maya
 
 - **Background:** Infrastructure engineer at a hyperscale company for a decade: rate limiters, API gateways, and a global caching layer. Now consults for growing companies.
 - **In conversation:** Lead expert for APIs, data and infrastructure. Knows what breaks at each order of magnitude.
@@ -169,15 +186,15 @@ Picks are matched from ElevenLabs' own voice descriptors against each host's cas
 ### Jules
 
 - **Background:** Indie builder; runs two profitable small products alone after years at agencies. Ships weekly.
-- **In conversation:** Foil to Mei. Asks whether this matters for a five-person team, and what the cheapest version that works is.
-- **How they talk:** Casual, funny, concrete about cost and time ("that's a weekend, tops"). Genuinely impressed when Mei's scale story applies to them.
-- **Hills they'll die on:** Postgres can do it. Boring tech is a competitive advantage. Every dependency is a liability with a changelog.
-- **Blind spot:** Underestimates problems they haven't hit yet; Mei calls it out.
+- **In conversation:** Foil to Maya. Asks whether this matters for a five-person team, and what the cheapest version that works is.
+- **How she talks:** Casual, funny, concrete about cost and time ("that's a weekend, tops"). Genuinely impressed when Maya's scale story applies to her.
+- **Hills she'll die on:** Postgres can do it. Boring tech is a competitive advantage. Every dependency is a liability with a changelog.
+- **Blind spot:** Underestimates problems she hasn't hit yet; Maya calls it out.
 - **Never says:** "Enterprise-grade."
-- **Voice casting:** Easy, conversational, slightly higher energy than Mei; contrast in timbre matters more than gender.
+- **Voice casting:** Easy, conversational, slightly higher energy than Maya; contrast in timbre matters more than gender.
 - **ElevenLabs:** Maisie – Friendly Casual Neighbor (`QtY3JBOUKEB5xzrRfOKc`). Alternate: Eddie – Natural and Helpful (`l7kNoIfnJKPg7779LI2t`); switch if Maisie sits too close to Elowen.
 - **Audition line:**
-  > That's two "billion requests," by the way. I'm keeping a tally. Look, I run two products with about four thousand users combined. Do I need a global caching layer? No. I need Postgres and a cron job, and that's a weekend, tops. ...Although. The idempotency key thing. I got double-charged by my own checkout last month. So, fine, Mei. That one I'm stealing. Everything else stays boring.
+  > That's two "billion requests," by the way. I'm keeping a tally. Look, I run two products with about four thousand users combined. Do I need a global caching layer? No. I need Postgres and a cron job, and that's a weekend, tops. ...Although. The idempotency key thing. I got double-charged by my own checkout last month. So, fine, Maya. That one I'm stealing. Everything else stays boring.
 
 ## How the pipeline uses the cast
 
@@ -186,26 +203,26 @@ A larger cast changes three things in the build: pairing selection, per-host voi
 - **Pairing selection.** A topic can name its pairing; otherwise the outline stage picks one from the topic-to-pairing table above. Guests are added only when the dossier gives them something specific to do.
 - **Prompt input.** The script stage receives only the profiles of the hosts in that episode, never the whole cast, so voices stay distinct.
 - **Staying in character.** Each host's "Never says" line becomes a per-speaker slop-linter rule. The adversarial editor also flags lines that contradict a host's stated opinions.
-- **Show memory per pairing.** Callbacks come from that pairing's past episodes. An occasional cross-cast mention ("Mei would hate this") is allowed and makes the cast feel like a real show.
-- **Voices per host.** `voice_profiles` maps each host to a voice ID rather than storing one A/B pair. Seed values from the casting table, pending auditions:
+- **Show memory per pairing.** Callbacks come from that pairing's past episodes. An occasional cross-cast mention ("Maya would hate this") is allowed and makes the cast feel like a real show.
+- **Voices per host.** `voice_profiles` maps each host to a voice ID rather than storing one A/B pair. The cast from auditions, as seeded into the `EL-1` profile:
 
   ```yaml
   voice_profiles:
     vendor: elevenlabs
     hosts:
-      dana:   WQP7cQUF5aAS6Axh5yaa   # Elara – Crisp Pro Narrator
-      marcus: ktkP7Nsj67dw2zcplQYt   # Lawrence – Bright and Informative
-      mei:    dvbL7qkNGZY1IqPGZAjM   # Elowen – Upbeat Modern Narrator
+      dana:   g7LVvkPWALzPxOQbF6OE   # Jade – Upbeat and Natural
+      marcus: l7kNoIfnJKPg7779LI2t   # Eddie – Natural and Helpful
+      maya:   dvbL7qkNGZY1IqPGZAjM   # Elowen – Upbeat Modern Narrator
       jules:  QtY3JBOUKEB5xzrRfOKc   # Maisie – Friendly Casual Neighbor
-      ines:   BFd5oBc2DDna33pSi4Gf   # Alicia – Polished Global Anchor
+      claire: BFd5oBc2DDna33pSi4Gf   # Alicia – Polished Global Anchor
       theo:   7QN34D2r3hCNwbOYIeK0   # Warren – Effortless and Cool
       priya:  22N9cF8z0o7y23njdyaY   # Florence – Atmospheric Storyteller (placeholder)
-      kofi:   FrS6cKLB1wg4WYgPa9GW   # Wyatt – Seasoned Mentor
+      kofi:   gOupLcAkjEnguROwi4oS   # Darian – Warm Grounded Storyteller
       rachel: OZ0L6eISlOejga3XjDFt   # Talia – Warm Soft Guide
       sam:    fs2OqxduwXgp9foh2xjK   # Callum – Husky Trickster
   ```
 
-- **Bake-off scope.** Vendors are compared on one pairing only: Dana + Marcus on a microservices scene. On ElevenLabs that means Elara + Lawrence. Once a vendor wins, the other eight hosts are cast on that vendor using the 30-second audition lines in each profile above.
+- **Bake-off scope.** Vendors are compared on one pairing only: Dana + Marcus on a microservices scene. On ElevenLabs that means Jade + Eddie. Once a vendor wins, the other eight hosts are cast on that vendor using the 30-second audition lines in each profile above.
 
 ## Sources
 

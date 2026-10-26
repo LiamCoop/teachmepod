@@ -4,7 +4,7 @@ Oct 25, 2026 · @Liam
 
 ## Goals and scope
 
-v1 builds the whole pipeline end to end, then spends its effort on a voice bake-off, not on producing episodes. The product is a private, two-host technical podcast (a cast of ten in four standing pairings, with a woman as lead expert in three) of 20–40 minutes depending on the topic, 2–3 times a week, for walks to and from the office.
+v1 builds the whole pipeline end to end, then spends its effort on a voice bake-off, not on producing episodes. The product is a private, two-host technical podcast (a cast of ten in four standing pairings, with a woman as lead expert in all four) of 20–40 minutes depending on the topic, 2–3 times a week, for walks to and from the office.
 
 **v1 delivers**
 
@@ -114,7 +114,7 @@ The vendor is chosen by listening on real walks, not by spec sheets. One script,
 
 | Profile | Vendor and model | Why it's in |
 | --- | --- | --- |
-| EL-1, EL-2 | [ElevenLabs v3 Text to Dialogue](https://elevenlabs.io/docs/capabilities/text-to-dialogue), two voice pairs | Built for multi-speaker podcast dialogue, inline audio tags, voice design for the female host |
+| EL-1 | [ElevenLabs v3 Text to Dialogue](https://elevenlabs.io/docs/capabilities/text-to-dialogue), Jade + Eddie from the [auditions](docs/hosts.md) | Built for multi-speaker podcast dialogue, inline audio tags, voice design for the female host |
 | GM-1, GM-2 | [Gemini TTS](https://fal.ai/learn/tools/best-text-to-speech-apis), two voice pairs | Top of a May 2026 speech-quality ranking; supports multi-speaker |
 | AZ-1 | Azure AI Speech, one pair | You're already on Azure; the control |
 

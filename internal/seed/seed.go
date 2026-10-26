@@ -36,6 +36,8 @@ type VoiceProfile struct {
 	Vendor string `yaml:"vendor"`
 	Model  string `yaml:"model"`
 	Notes  string `yaml:"notes"`
+	// CastVoices fills voices (host slug -> voice ID) from the cast voices in hosts.yaml.
+	CastVoices bool `yaml:"cast_voices"`
 }
 
 type Initial struct {
@@ -91,11 +93,22 @@ func Run(ctx context.Context, pool *pgxpool.Pool) error {
 		}
 
 		for _, v := range initial.VoiceProfiles {
+			voices := map[string]string{}
+			if v.CastVoices {
+				if v.Vendor != "elevenlabs" {
+					return fmt.Errorf("voice profile %s: cast voices exist only for elevenlabs", v.Name)
+				}
+				for _, h := range c.Hosts {
+					if cv, ok := h.CastVoice(); ok {
+						voices[h.Slug] = cv.ID
+					}
+				}
+			}
 			_, err := tx.Exec(ctx, `
-				INSERT INTO voice_profiles (name, vendor, model, notes)
-				VALUES ($1, $2, $3, $4)
+				INSERT INTO voice_profiles (name, vendor, model, notes, voices)
+				VALUES ($1, $2, $3, $4, $5)
 				ON CONFLICT (name) DO NOTHING`,
-				v.Name, v.Vendor, v.Model, v.Notes)
+				v.Name, v.Vendor, v.Model, v.Notes, voices)
 			if err != nil {
 				return fmt.Errorf("voice profile %s: %w", v.Name, err)
 			}

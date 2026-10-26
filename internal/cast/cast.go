@@ -35,6 +35,17 @@ type VoiceOption struct {
 	Pick string `yaml:"pick"` // first or alternate
 	Name string `yaml:"name"`
 	ID   string `yaml:"id"`
+	Cast bool   `yaml:"cast"` // the voice this host was cast in
+}
+
+// CastVoice returns the ElevenLabs voice the host was cast in, if any.
+func (h Host) CastVoice() (VoiceOption, bool) {
+	for _, v := range h.ElevenLabs {
+		if v.Cast {
+			return v, true
+		}
+	}
+	return VoiceOption{}, false
 }
 
 type Pairing struct {
@@ -76,14 +87,20 @@ func (c *Cast) validate() error {
 		if h.Role != "host" && h.Role != "guest" {
 			return fmt.Errorf("host %s: role %q must be host or guest", h.Slug, h.Role)
 		}
-		firsts := 0
+		firsts, cast := 0, 0
 		for _, v := range h.ElevenLabs {
+			if v.Cast {
+				cast++
+			}
 			if v.ID == "" || v.Name == "" || (v.Pick != "first" && v.Pick != "alternate") {
 				return fmt.Errorf("host %s: elevenlabs voice %+v needs an id, a name and pick first or alternate", h.Slug, v)
 			}
 			if v.Pick == "first" {
 				firsts++
 			}
+		}
+		if cast > 1 {
+			return fmt.Errorf("host %s: cast in %d voices, at most one allowed", h.Slug, cast)
 		}
 		if len(h.ElevenLabs) > 0 && firsts != 1 {
 			return fmt.Errorf("host %s: elevenlabs needs exactly one first pick, has %d", h.Slug, firsts)

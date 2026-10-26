@@ -15,25 +15,23 @@ topics:
   - title: API design
     depth: advanced
     priority: 20
-    pairing: mei-jules
+    pairing: maya-jules
     baseline: Expert. Chosen as a bake-off test topic so mistakes are easy to hear.
   - title: Intermediate/advanced React
     depth: advanced
     priority: 10
-    pairing: ines-theo
+    pairing: claire-theo
     baseline: Expert. Chosen as a bake-off test topic so mistakes are easy to hear.
 
-# The bake-off matrix. Vendors are compared on Dana + Marcus only; voice IDs
-# get filled in once voices are picked.
+# The bake-off matrix. Vendors are compared on Dana + Marcus only. EL-1's voices
+# come from the `cast: true` voices in hosts.yaml; the others are filled in once
+# their voices are picked.
 voice_profiles:
   - name: EL-1
     vendor: elevenlabs
     model: eleven_v3
-    notes: ElevenLabs v3 Text to Dialogue, voice pair 1
-  - name: EL-2
-    vendor: elevenlabs
-    model: eleven_v3
-    notes: ElevenLabs v3 Text to Dialogue, voice pair 2
+    cast_voices: true
+    notes: ElevenLabs v3 Text to Dialogue, the cast from auditions
   - name: GM-1
     vendor: gemini
     notes: Gemini multi-speaker TTS, voice pair 1
