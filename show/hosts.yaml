@@ -1,0 +1,183 @@
+# The cast: ten hosts, four standing pairings, two rotating guests.
+# Source of truth for the cast; not stored in Postgres. Topics and episodes
+# refer to pairings and guests by slug. Every script prompt receives only the
+# profiles of the hosts in that episode.
+
+hosts:
+  - slug: priya
+    name: Priya
+    pronouns: she/her
+    role: host
+    background: Eight years as an SRE, most recently running incident response at a payments company. Has written more postmortems than she can count.
+    in_conversation: Leads on reliability topics. Pulls every design back to how it fails, who notices, and how long recovery takes.
+    how_they_talk: Dry, understated, short sentences. Tells incident stories with times attached ("4:12am, the queue depth graph goes vertical").
+    hills:
+      - Alerts must be actionable or deleted.
+      - Retries without backoff are a denial-of-service attack on yourself.
+      - Nobody reads the runbook during an incident.
+    blind_spot: Distrusts anything new until it has caused its first outage, so she can undersell genuinely better tools.
+    never_says: '"It should be fine."'
+    voice_casting: Lower-mid register, unhurried, deadpan delivery that makes the jokes land late.
+
+  - slug: marcus
+    name: Marcus
+    pronouns: he/him
+    role: host
+    background: Two-time startup CTO. One exit, one company that died under a microservices migration he championed and now regrets.
+    in_conversation: The foil to Dana. States the strong, slightly unfair version of a take so it can be tested.
+    how_they_talk: Fast, emphatic, big claims. Concedes gracefully and specifically when the evidence beats him ("Okay. That's a real number. I'll take it.").
+    hills:
+      - Most microservices adoptions solve an org-chart problem with network calls.
+      - A boring monolith beats a clever distributed system.
+      - Rewrites almost always fail.
+    blind_spot: Generalizes from his own two companies.
+    never_says: '"It depends" without immediately saying what it depends on.'
+    voice_casting: Warm, energetic, a bit of a grin in the voice; quicker pace than his partner.
+
+  - slug: dana
+    name: Dana
+    pronouns: she/her
+    role: host
+    background: PhD in distributed systems, then five years building a storage system at a cloud provider. Still reads three papers a week.
+    in_conversation: Lead expert for architecture and distributed systems. Brings the paper, the proof sketch, and the edge case nobody considered.
+    how_they_talk: Precise but playful. Gets audibly delighted by a good failure mode. Cites gently ("there's a 2007 paper that says, roughly…").
+    hills:
+      - '"Eventually consistent" is not a design, it''s a confession.'
+      - Clocks lie.
+      - Most people who say CAP mean something else.
+    blind_spot: Can underweight the human and organizational cost of the correct solution; Marcus calls this out.
+    never_says: '"Trust me."'
+    voice_casting: Bright, clear mid-range, measured pace that speeds up when she's excited.
+
+  - slug: theo
+    name: Theo
+    pronouns: he/him
+    role: host
+    background: Ten years in game development (engine and tools), now a full-stack generalist at a product company. Self-taught on the web side.
+    in_conversation: The curious foil to Inès. Asks the question a smart listener is thinking, right when they're thinking it.
+    how_they_talk: Relaxed, wondering out loud, thinks in analogies from game loops, frame budgets and entity systems. Admits confusion without embarrassment.
+    hills:
+      - If you can't draw it, you don't understand it.
+      - A 16ms frame budget is the best teacher of performance ever invented.
+    blind_spot: Analogies that go one step too far; Inès rates them.
+    never_says: '"Obviously."'
+    voice_casting: Easygoing, slightly lower register, natural laugh.
+
+  - slug: ines
+    name: Inès
+    pronouns: she/her
+    role: host
+    background: Frontend performance specialist; led a rendering rewrite at a large e-commerce site and contributes to open-source React tooling.
+    in_conversation: Lead expert for React and frontend. Explains what the browser and the reconciler are actually doing, step by step.
+    how_they_talk: Crisp and confident, numbers in milliseconds, little patience for folklore. Generous when someone's question is genuinely good.
+    hills:
+      - Measure before you memoize.
+      - Most "slow React" is too much work per render, not React.
+      - The user's perceived latency is the only latency.
+    blind_spot: Can treat performance as the goal when the team's real problem is complexity.
+    never_says: '"Best practice" without saying whose and why.'
+    voice_casting: Clear, articulate, mid-to-high register, quick but never rushed.
+
+  - slug: kofi
+    name: Kofi
+    pronouns: he/him
+    role: host
+    background: Twenty years in, the last eight as an enterprise architect at a bank and then a logistics company. Has watched SOA, ESBs, microservices and platform engineering each arrive as the answer.
+    in_conversation: Foil to Priya. Turns every technical problem into an ownership and incentives question, usually correctly.
+    how_they_talk: Calm, slow, wry. Tells "I've seen this before" stories but always says what was different last time.
+    hills:
+      - Conway's law is undefeated.
+      - Every shared library is a meeting you'll have later.
+      - A migration without an owner is a rumour.
+    blind_spot: Can be too fatalistic about whether new tools genuinely change things.
+    never_says: '"This time it''s different" (unless he''s mocking it).'
+    voice_casting: Deep, resonant, unhurried, the steadiest voice in the cast.
+
+  - slug: rachel
+    name: Rachel
+    pronouns: she/her
+    role: guest
+    background: Staff engineer at a mid-size SaaS company; runs the internal architecture review and mentors a dozen engineers.
+    in_conversation: Guest. Translates ideas into what a team would actually do on Monday, and asks whether it survives code review.
+    how_they_talk: Warm, direct, practical. Often reframes ("so if I'm a team of six with one on-call rotation…").
+    hills:
+      - Write the decision down.
+      - Reversible decisions should be fast.
+      - The best architecture is the one your team can explain.
+    blind_spot: Can sand down an interesting idea into a safe one.
+    never_says: '"Just." (As in "just add a cache.")'
+    voice_casting: Warm mid-range, friendly but firm, conversational pace.
+
+  - slug: sam
+    name: Sam
+    pronouns: they/them
+    role: guest
+    background: Application security engineer; spent years in a red team before moving to a product security team.
+    in_conversation: Guest. Finds the attack in whatever the hosts just designed, and enjoys it.
+    how_they_talk: Cheerful, quick, a little mischievous. Walks through attacks as small stories ("so I'm a user, and I change this ID to 41…").
+    hills:
+      - Authorization bugs outnumber authentication bugs.
+      - Every webhook is an inbound attack surface.
+      - Secrets in environment variables end up in logs.
+    blind_spot: Everything is a threat model; can derail a performance conversation.
+    never_says: '"Nobody would ever do that."'
+    voice_casting: Lively, quick, playful; cast for contrast with whichever pair they join.
+
+  - slug: mei
+    name: Mei
+    pronouns: she/her
+    role: host
+    background: Infrastructure engineer at a hyperscale company for a decade (rate limiters, API gateways, and a global caching layer). Now consults for growing companies.
+    in_conversation: Lead expert for APIs, data and infrastructure. Knows what breaks at each order of magnitude.
+    how_they_talk: Confident, numbers-first, enjoys a good war story about a thundering herd. Laughs at herself when Jules catches her scale-brain.
+    hills:
+      - Design the API for the client you'll have in three years.
+      - Idempotency keys are not optional.
+      - Pagination by offset is a bug waiting for traffic.
+    blind_spot: Assumes scale problems that a small team may never have.
+    never_says: '"We''ll version it later."'
+    voice_casting: Bright, energetic, mid register, fast talker who slows down for the important bit.
+
+  - slug: jules
+    name: Jules
+    pronouns: they/them
+    role: host
+    background: Indie builder; runs two profitable small products alone after years at agencies. Ships weekly.
+    in_conversation: Foil to Mei. Asks whether this matters for a five-person team, and what the cheapest version that works is.
+    how_they_talk: Casual, funny, concrete about cost and time ("that's a weekend, tops"). Genuinely impressed when Mei's scale story applies to them.
+    hills:
+      - Postgres can do it.
+      - Boring tech is a competitive advantage.
+      - Every dependency is a liability with a changelog.
+    blind_spot: Underestimates problems they haven't hit yet; Mei calls it out.
+    never_says: '"Enterprise-grade."'
+    voice_casting: Easy, conversational, slightly higher energy than Mei; contrast in timbre matters more than gender.
+
+pairings:
+  - slug: dana-marcus
+    lead: dana
+    foil: marcus
+    friction: Evidence vs. the hot take
+    topic_areas: [microservices, distributed systems, architecture patterns, consistency]
+    running_bit: Marcus declares something dead; Dana finds the paper where it's thriving.
+
+  - slug: mei-jules
+    lead: mei
+    foil: jules
+    friction: Scale vs. "just ship it"
+    topic_areas: [API design, databases, caching, infrastructure, platform teams]
+    running_bit: '"At a billion requests a day…" — Jules counts how many times she says it.'
+
+  - slug: ines-theo
+    lead: ines
+    foil: theo
+    friction: Precision vs. curiosity
+    topic_areas: [React, rendering, browsers, frontend performance, state management]
+    running_bit: Theo's game-engine analogies, which Inès rates out of ten.
+
+  - slug: priya-kofi
+    lead: priya
+    foil: kofi
+    friction: What breaks vs. who owns it
+    topic_areas: [reliability, observability, incidents, team topology, migrations]
+    running_bit: Priya's "what pages you?" and Kofi's "who owns that?" as a two-question test.

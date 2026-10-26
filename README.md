@@ -1,0 +1,26 @@
+# teachmepod
+
+A private two-host technical podcast generated from a backlog. See [PLAN.md](PLAN.md).
+
+## Database
+
+Railway project `teachmepod`, Postgres service `Postgres` (no public proxy).
+
+```sh
+# open a tunnel (prints the connection URL)
+railway connect Postgres --tunnel-only -P 55432
+
+# in another shell
+export DATABASE_URL=postgresql://postgres:<password>@127.0.0.1:55432/railway
+go run ./cmd/podcastd setup   # migrate + seed
+```
+
+- `migrations/` holds the schema (goose, embedded in the binary). `00002` is the knowledge graph from [ADR-001](adrs/ADR-001%20Topics%20as%20a%20knowledge%20graph.md).
+- `show/hosts.yaml` is the cast and pairings. It is not stored in Postgres; topics and episodes refer to pairings and guests by slug.
+- `show/seed.yaml` holds the initial user, backlog and bake-off voice profiles; `seed` inserts them only if missing.
+
+### Concept graph conventions
+
+- `prerequisite`: src must be learned before dst. `part_of`: src is a child of dst. `related`: stored once with `src_id < dst_id`.
+- A trigger rejects edges that would close a cycle in `prerequisite` or `part_of`; a partial unique index allows one `part_of` parent per concept.
+- `concepts.embedding` is an untyped `vector`; fix its dimension and add an HNSW index once the embedding model is chosen.

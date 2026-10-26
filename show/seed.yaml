@@ -1,0 +1,45 @@
+# Initial users, backlog and bake-off voice profiles. `podcastd seed` inserts these
+# only when missing, so edits made later through the site are never overwritten.
+
+users:
+  - handle: liam
+    name: Liam Cooper
+
+topics:
+  # First test topics: areas the listener knows well, so errors are easy to hear.
+  - title: Microservices
+    depth: advanced
+    priority: 30
+    pairing: dana-marcus
+    baseline: Expert. Chosen as a bake-off test topic so mistakes are easy to hear.
+  - title: API design
+    depth: advanced
+    priority: 20
+    pairing: mei-jules
+    baseline: Expert. Chosen as a bake-off test topic so mistakes are easy to hear.
+  - title: Intermediate/advanced React
+    depth: advanced
+    priority: 10
+    pairing: ines-theo
+    baseline: Expert. Chosen as a bake-off test topic so mistakes are easy to hear.
+
+# The bake-off matrix. Vendors are compared on Dana + Marcus only; voice IDs
+# get filled in once voices are picked.
+voice_profiles:
+  - name: EL-1
+    vendor: elevenlabs
+    model: eleven_v3
+    notes: ElevenLabs v3 Text to Dialogue, voice pair 1
+  - name: EL-2
+    vendor: elevenlabs
+    model: eleven_v3
+    notes: ElevenLabs v3 Text to Dialogue, voice pair 2
+  - name: GM-1
+    vendor: gemini
+    notes: Gemini multi-speaker TTS, voice pair 1
+  - name: GM-2
+    vendor: gemini
+    notes: Gemini multi-speaker TTS, voice pair 2
+  - name: AZ-1
+    vendor: azure
+    notes: Azure AI Speech, the control
