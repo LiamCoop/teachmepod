@@ -13,7 +13,10 @@ railway connect Postgres --tunnel-only -P 55432
 # in another shell
 export DATABASE_URL=postgresql://postgres:<password>@127.0.0.1:55432/railway
 go run ./cmd/podcastd setup   # migrate + seed
+PORT=8080 go run ./cmd/podcastd serve   # migrate, then serve; GET /healthz checks the database
 ```
+
+The `Dockerfile` builds the same binary into a Debian image with ffmpeg; its default command is `serve`.
 
 - `migrations/` holds the schema (goose, embedded in the binary). `00002` is the knowledge graph from [ADR-001](adrs/ADR-001%20Topics%20as%20a%20knowledge%20graph.md).
 - Text artifacts (dossiers, scripts, …) live in the `artifacts` table (`00004`); the bucket holds audio only.
