@@ -115,6 +115,7 @@ The vendor is chosen by listening on real walks, not by spec sheets. One script,
 | Profile | Vendor and model | Why it's in |
 | --- | --- | --- |
 | EL-1 | [ElevenLabs v3 Text to Dialogue](https://elevenlabs.io/docs/capabilities/text-to-dialogue), Jade + Eddie from the [auditions](docs/hosts.md) | Built for multi-speaker podcast dialogue, inline audio tags, voice design for the female host |
+| EL-2 | ElevenLabs v3 Text to Dialogue, Elara (robust stability) + Eddie | Elara sounded more excited than Jade in auditions but needs robust stability, which follows audio tags less closely; this tests whether that holds up in dialogue |
 | GM-1, GM-2 | [Gemini TTS](https://fal.ai/learn/tools/best-text-to-speech-apis), two voice pairs | Top of a May 2026 speech-quality ranking; supports multi-speaker |
 | AZ-1 | Azure AI Speech, one pair | You're already on Azure; the control |
 

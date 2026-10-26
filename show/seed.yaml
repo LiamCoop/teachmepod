@@ -24,7 +24,7 @@ topics:
     baseline: Expert. Chosen as a bake-off test topic so mistakes are easy to hear.
 
 # The bake-off matrix. Vendors are compared on Dana + Marcus only. EL-1's voices
-# come from the `cast: true` voices in hosts.yaml; the others are filled in once
+# come from the `cast: true` voices in hosts.yaml, and EL-2 swaps in Elara for Dana; the others are filled in once
 # their voices are picked.
 voice_profiles:
   - name: EL-1
@@ -32,6 +32,13 @@ voice_profiles:
     model: eleven_v3
     cast_voices: true
     notes: ElevenLabs v3 Text to Dialogue, the cast from auditions
+  - name: EL-2
+    vendor: elevenlabs
+    model: eleven_v3
+    cast_voices: true
+    voices:
+      dana: WQP7cQUF5aAS6Axh5yaa # Elara, at robust stability (from hosts.yaml)
+    notes: As EL-1, with Elara as Dana; tests whether robust stability costs her the audio tags in dialogue
   - name: GM-1
     vendor: gemini
     notes: Gemini multi-speaker TTS, voice pair 1

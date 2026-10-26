@@ -59,7 +59,7 @@ Each pair is built on a disagreement the two hosts can have honestly, episode af
 
 **Audition plan.**
 
-1. **Bake-off first.** ElevenLabs' entry in the vendor bake-off is Jade (Dana) + Eddie (Marcus) on the microservices scene. All ten hosts are already cast on ElevenLabs; another vendor that wins the bake-off needs its own casting.
+1. **Bake-off first.** ElevenLabs has two entries in the vendor bake-off on the microservices scene: EL-1 is Jade (Dana) + Eddie (Marcus), and EL-2 is Elara at robust stability + Eddie. All ten hosts are already cast on ElevenLabs; another vendor that wins the bake-off needs its own casting.
 2. **Test on the production model.** The same voice can sound different across models, so audition on whichever model and mode (likely dialogue mode for two speakers) the pipeline will generate episodes with.
 3. **Audition in pairs.** Play each pair's lines back to back. The main collision risks are Maya/Jules and Dana/Claire.
 4. **Check the credit multiplier.** When adding each voice to My Voices, confirm it isn't billed at a higher rate before building cost estimates on it.
@@ -224,7 +224,7 @@ A larger cast changes three things in the build: pairing selection, per-host voi
       sam:    fs2OqxduwXgp9foh2xjK   # Callum – Husky Trickster
   ```
 
-- **Bake-off scope.** Vendors are compared on one pairing only: Dana + Marcus on a microservices scene. On ElevenLabs that means Jade + Eddie. Once a vendor wins, the other eight hosts are cast on that vendor using the 30-second audition lines in each profile above.
+- **Bake-off scope.** Vendors are compared on one pairing only: Dana + Marcus on a microservices scene. On ElevenLabs that means Jade + Eddie (EL-1) against Elara + Eddie (EL-2), which also settles Dana's voice. Once a vendor wins, the other eight hosts are cast on that vendor using the 30-second audition lines in each profile above.
 
 ## Sources
 

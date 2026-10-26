@@ -7,6 +7,7 @@ package seed
 import (
 	"context"
 	"fmt"
+	"slices"
 
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
@@ -38,6 +39,9 @@ type VoiceProfile struct {
 	Notes  string `yaml:"notes"`
 	// CastVoices fills voices (host slug -> voice ID) from the cast voices in hosts.yaml.
 	CastVoices bool `yaml:"cast_voices"`
+	// Voices overrides hosts' voices (host slug -> voice ID). An ElevenLabs
+	// override must be on that host's shortlist, which also supplies its stability.
+	Voices map[string]string `yaml:"voices"`
 }
 
 type Initial struct {
@@ -103,6 +107,16 @@ func Run(ctx context.Context, pool *pgxpool.Pool) error {
 						voices[h.Slug] = cv.ID
 					}
 				}
+			}
+			for slug, id := range v.Voices {
+				h, ok := c.Host(slug)
+				if !ok {
+					return fmt.Errorf("voice profile %s: unknown host %q", v.Name, slug)
+				}
+				if v.Vendor == "elevenlabs" && !slices.ContainsFunc(h.ElevenLabs, func(o cast.VoiceOption) bool { return o.ID == id }) {
+					return fmt.Errorf("voice profile %s: %s is not on %s's shortlist", v.Name, id, slug)
+				}
+				voices[slug] = id
 			}
 			_, err := tx.Exec(ctx, `
 				INSERT INTO voice_profiles (name, vendor, model, notes, voices)
