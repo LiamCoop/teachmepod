@@ -32,7 +32,8 @@ commands:
   setup     migrate, then seed
   add-test-render -profile EL-1 -title "..." file.mp3
             upload an MP3 and list it in the feed as a voice test
-  auditions [-host dana] [-cast] [-model eleven_v3] [-dry-run]
+  auditions [-host dana] [-voice Elara] [-cast] [-takes 3] [-stability robust]
+            [-line "..." -label "..."] [-model eleven_v3] [-dry-run]
             render every missing audition clip from show/hosts.yaml
 `
 
@@ -132,6 +133,11 @@ func runAuditions(ctx context.Context, pool *pgxpool.Pool, args []string) error 
 	fs.StringVar(&o.Host, "host", "", "only this host (slug); default all")
 	fs.StringVar(&o.Model, "model", elevenlabs.DefaultModel, "ElevenLabs model")
 	fs.BoolVar(&o.Cast, "cast", false, "only each host's cast voice")
+	fs.StringVar(&o.Voice, "voice", "", "only voices whose name or ID starts with this, e.g. Elara")
+	fs.IntVar(&o.Takes, "takes", 1, "render takes 1..n of each clip")
+	fs.StringVar(&o.Stability, "stability", "", "creative, natural or robust (default: the voice's own)")
+	fs.StringVar(&o.Line, "line", "", "replace the audition line, e.g. to add an audio tag (needs -host, -label)")
+	fs.StringVar(&o.Label, "label", "", "what this variant tests, shown on the review page")
 	fs.BoolVar(&o.DryRun, "dry-run", false, "show what would be rendered, spend nothing")
 	if err := fs.Parse(args); err != nil {
 		return err

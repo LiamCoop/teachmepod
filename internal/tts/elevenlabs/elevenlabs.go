@@ -36,22 +36,37 @@ func FromEnv() (*Client, error) {
 	return &Client{key: key, http: &http.Client{Timeout: 3 * time.Minute}}, nil
 }
 
+// Settings are the voice_settings sent with a request. Nil fields use the
+// voice's defaults.
+type Settings struct {
+	// Stability on eleven_v3: 0 is Creative (most expressive), 0.5 Natural
+	// (the default), 1 Robust (steadiest, least responsive to audio tags).
+	Stability *float64 `json:"stability,omitempty"`
+}
+
+// Stabilities maps the names ElevenLabs uses for v3 stability to values.
+var Stabilities = map[string]float64{"creative": 0, "natural": 0.5, "robust": 1}
+
 // Speak renders text in one voice and returns MP3 bytes.
-func (c *Client) Speak(ctx context.Context, voiceID, model, text string) ([]byte, error) {
-	body, err := json.Marshal(map[string]string{"text": text, "model_id": model})
+func (c *Client) Speak(ctx context.Context, voiceID, model, text string, settings Settings) ([]byte, error) {
+	req := map[string]any{"text": text, "model_id": model}
+	if settings != (Settings{}) {
+		req["voice_settings"] = settings
+	}
+	body, err := json.Marshal(req)
 	if err != nil {
 		return nil, err
 	}
 	u := fmt.Sprintf("%s/v1/text-to-speech/%s?output_format=%s", baseURL, url.PathEscape(voiceID), outputFormat)
-	req, err := http.NewRequestWithContext(ctx, http.MethodPost, u, bytes.NewReader(body))
+	hreq, err := http.NewRequestWithContext(ctx, http.MethodPost, u, bytes.NewReader(body))
 	if err != nil {
 		return nil, err
 	}
-	req.Header.Set("xi-api-key", c.key)
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Accept", "audio/mpeg")
+	hreq.Header.Set("xi-api-key", c.key)
+	hreq.Header.Set("Content-Type", "application/json")
+	hreq.Header.Set("Accept", "audio/mpeg")
 
-	resp, err := c.http.Do(req)
+	resp, err := c.http.Do(hreq)
 	if err != nil {
 		return nil, fmt.Errorf("elevenlabs: %w", err)
 	}

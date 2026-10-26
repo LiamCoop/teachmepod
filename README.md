@@ -34,6 +34,14 @@ go run ./cmd/podcastd auditions -dry-run        # what would be rendered, and ho
 go run ./cmd/podcastd auditions [-host dana]    # render what's missing into the bucket
 ```
 
+Variants for comparing a voice more fairly, each labelled on the review page:
+
+```sh
+go run ./cmd/podcastd auditions -host dana -voice Elara -takes 3            # more takes of the same line
+go run ./cmd/podcastd auditions -host dana -voice Elara -stability robust   # creative | natural | robust
+go run ./cmd/podcastd auditions -host dana -voice Jade -line "...[excited] Oh, I love this one..." -label "[excited] tag"
+```
+
 It needs the tunnel, the bucket variables (as for `add-test-render`) and `ELEVENLABS_API_KEY`, which lives on the `podcastd` service. A clip is never rendered twice for the same host, voice, model and line; changing a line renders it fresh.
 
 Review at `/auditions/<FEED_TOKEN>`: hosts grouped by pairing, a player per voice, "Play pair" to hear lead then foil, and shortlist / reject with a note per clip.

@@ -28,6 +28,8 @@ type clip struct {
 	DurationS int
 	Verdict   string
 	Note      string
+	Take      int
+	Label     string
 }
 
 type hostAuditions struct {
@@ -52,9 +54,9 @@ func (s *Server) auditions(w http.ResponseWriter, r *http.Request) {
 	}
 	byHost := map[string][]clip{}
 	rows, err := s.pool.Query(r.Context(), `
-		SELECT id, host, voice_name, pick, model, duration_s, verdict, note, line_sha256
+		SELECT id, host, voice_name, pick, model, duration_s, verdict, note, line_sha256, take, label
 		FROM voice_auditions
-		ORDER BY host, pick = 'alternate', voice_name, created_at DESC`)
+		ORDER BY host, pick = 'alternate', voice_name, label <> '', label, take`)
 	if err != nil {
 		serverError(w, "auditions: query", err)
 		return
@@ -67,11 +69,12 @@ func (s *Server) auditions(w http.ResponseWriter, r *http.Request) {
 	for rows.Next() {
 		var c clip
 		var host, sha string
-		if err := rows.Scan(&c.ID, &host, &c.VoiceName, &c.Pick, &c.Model, &c.DurationS, &c.Verdict, &c.Note, &sha); err != nil {
+		if err := rows.Scan(&c.ID, &host, &c.VoiceName, &c.Pick, &c.Model, &c.DurationS, &c.Verdict, &c.Note, &sha, &c.Take, &c.Label); err != nil {
 			serverError(w, "auditions: scan", err)
 			return
 		}
-		if sha == current[host] { // clips of an older line are kept but not shown
+		// Clips of an older line are kept but not shown; labelled variants always are.
+		if sha == current[host] || c.Label != "" {
 			byHost[host] = append(byHost[host], c)
 		}
 	}
