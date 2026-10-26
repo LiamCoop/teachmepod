@@ -22,5 +22,6 @@ go run ./cmd/podcastd setup   # migrate + seed
 ### Concept graph conventions
 
 - `prerequisite`: src must be learned before dst. `part_of`: src is a child of dst. `related`: stored once with `src_id < dst_id`.
-- A trigger rejects edges that would close a cycle in `prerequisite` or `part_of`; a partial unique index allows one `part_of` parent per concept.
+- Both rules hold for approved edges only, so research can propose competing parents and edges side by side: a trigger rejects approving an edge that would close a cycle in `prerequisite` or `part_of`, and a partial unique index allows one approved `part_of` parent per concept.
+- `proposed_by_episode_id` on concepts and edges records which episode's research proposed them (`00003`).
 - `concepts.embedding` is an untyped `vector`; fix its dimension and add an HNSW index once the embedding model is chosen.

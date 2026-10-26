@@ -57,7 +57,7 @@ Each stage is a River job that reads its inputs from object storage, writes one 
    - stories: incidents, postmortems, who built it and why
    - misconceptions and open debates (the raw material for disagreement)
    - sources with URLs, as summaries in our own words, never copied text
-   - follow-up topic suggestions
+   - adjacent concepts found along the way, proposed as new nodes in the concept graph ([ADR-001](adrs/ADR-001%20Topics%20as%20a%20knowledge%20graph.md)); you approve the ones worth an episode into the backlog
 3. **Outline → `outline.md`.** Length follows the material: 20–40 minutes, set by how many strong concepts and stories the dossier holds, in scenes of about 5 minutes. Episodes over 25 minutes get a recap and a natural break near the middle, so the evening walk picks up cleanly.
 4. **Beats → `beats.md`.** What's actually interesting, scene by scene. Accuracy pass only, no dialogue yet.
 5. **Dialogue → `script.json`.** Beats become conversation one scene at a time. Vendor-neutral format: `scenes[] → turns[] {speaker, text, tags[]}`, where tags are abstract (`laugh`, `interrupt`, `sigh`) and adapters map them to vendor syntax. About 150 words per minute of target length.
