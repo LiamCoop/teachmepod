@@ -24,6 +24,17 @@ type Host struct {
 	BlindSpot      string   `yaml:"blind_spot"`
 	NeverSays      string   `yaml:"never_says"`
 	VoiceCasting   string   `yaml:"voice_casting"`
+
+	// Voice casting shortlist: a 30-second line in character, and the
+	// ElevenLabs voices to hear it in.
+	AuditionLine string        `yaml:"audition_line"`
+	ElevenLabs   []VoiceOption `yaml:"elevenlabs"`
+}
+
+type VoiceOption struct {
+	Pick string `yaml:"pick"` // first or alternate
+	Name string `yaml:"name"`
+	ID   string `yaml:"id"`
 }
 
 type Pairing struct {
@@ -64,6 +75,21 @@ func (c *Cast) validate() error {
 		}
 		if h.Role != "host" && h.Role != "guest" {
 			return fmt.Errorf("host %s: role %q must be host or guest", h.Slug, h.Role)
+		}
+		firsts := 0
+		for _, v := range h.ElevenLabs {
+			if v.ID == "" || v.Name == "" || (v.Pick != "first" && v.Pick != "alternate") {
+				return fmt.Errorf("host %s: elevenlabs voice %+v needs an id, a name and pick first or alternate", h.Slug, v)
+			}
+			if v.Pick == "first" {
+				firsts++
+			}
+		}
+		if len(h.ElevenLabs) > 0 && firsts != 1 {
+			return fmt.Errorf("host %s: elevenlabs needs exactly one first pick, has %d", h.Slug, firsts)
+		}
+		if len(h.ElevenLabs) > 0 && h.AuditionLine == "" {
+			return fmt.Errorf("host %s: elevenlabs voices but no audition_line", h.Slug)
 		}
 		seen[h.Slug] = true
 	}

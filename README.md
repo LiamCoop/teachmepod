@@ -25,6 +25,19 @@ go run ./cmd/podcastd add-test-render -profile EL-1 -title "Dana + Marcus, pair 
 
 It needs `ffprobe` locally to read the duration.
 
+## Voice auditions
+
+[docs/hosts.md](docs/hosts.md) is the cast tour and the ElevenLabs shortlist. The machine-readable copy lives in `show/hosts.yaml` (`audition_line` and `elevenlabs` per host); edit both together.
+
+```sh
+go run ./cmd/podcastd auditions -dry-run        # what would be rendered, and how many characters
+go run ./cmd/podcastd auditions [-host dana]    # render what's missing into the bucket
+```
+
+It needs the tunnel, the bucket variables (as for `add-test-render`) and `ELEVENLABS_API_KEY`, which lives on the `podcastd` service. A clip is never rendered twice for the same host, voice, model and line; changing a line renders it fresh.
+
+Review at `/auditions/<FEED_TOKEN>`: hosts grouped by pairing, a player per voice, "Play pair" to hear lead then foil, and shortlist / reject with a note per clip.
+
 ## Database
 
 Railway project `teachmepod`, Postgres service `Postgres` (no public proxy).

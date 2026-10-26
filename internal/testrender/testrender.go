@@ -7,15 +7,14 @@ import (
 	"context"
 	"fmt"
 	"os"
-	"os/exec"
 	"path/filepath"
-	"strconv"
 	"strings"
 	"time"
 
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 
+	"teachmepod/internal/audio"
 	"teachmepod/internal/storage"
 )
 
@@ -45,7 +44,7 @@ func Add(ctx context.Context, pool *pgxpool.Pool, store *storage.Store, o Option
 	if err != nil {
 		return 0, err
 	}
-	duration, err := probeSeconds(ctx, o.File)
+	duration, err := audio.ProbeSeconds(ctx, o.File)
 	if err != nil {
 		return 0, err
 	}
@@ -84,18 +83,4 @@ func Add(ctx context.Context, pool *pgxpool.Pool, store *storage.Store, o Option
 		return 0, fmt.Errorf("record render (uploaded as %s): %w", key, err)
 	}
 	return renderID, nil
-}
-
-// probeSeconds reads the file's duration with ffprobe.
-func probeSeconds(ctx context.Context, path string) (int, error) {
-	out, err := exec.CommandContext(ctx, "ffprobe", "-v", "error",
-		"-show_entries", "format=duration", "-of", "default=noprint_wrappers=1:nokey=1", path).Output()
-	if err != nil {
-		return 0, fmt.Errorf("ffprobe %s: %w", path, err)
-	}
-	secs, err := strconv.ParseFloat(strings.TrimSpace(string(out)), 64)
-	if err != nil {
-		return 0, fmt.Errorf("ffprobe %s: unexpected output %q", path, out)
-	}
-	return int(secs + 0.5), nil
 }

@@ -13,10 +13,13 @@ import (
 
 	"github.com/jackc/pgx/v5/pgxpool"
 
+	"teachmepod/internal/auditions"
+	"teachmepod/internal/cast"
 	"teachmepod/internal/db"
 	"teachmepod/internal/seed"
 	"teachmepod/internal/storage"
 	"teachmepod/internal/testrender"
+	"teachmepod/internal/tts/elevenlabs"
 	"teachmepod/internal/web"
 )
 
@@ -29,6 +32,8 @@ commands:
   setup     migrate, then seed
   add-test-render -profile EL-1 -title "..." file.mp3
             upload an MP3 and list it in the feed as a voice test
+  auditions [-host dana] [-model eleven_v3] [-dry-run]
+            render every missing audition clip from show/hosts.yaml
 `
 
 func main() {
@@ -49,7 +54,7 @@ func main() {
 
 func run(ctx context.Context, cmd string, args []string) error {
 	switch cmd {
-	case "serve", "migrate", "seed", "setup", "add-test-render":
+	case "serve", "migrate", "seed", "setup", "add-test-render", "auditions":
 	default:
 		fmt.Fprint(os.Stderr, usage)
 		return fmt.Errorf("unknown command %q", cmd)
@@ -82,10 +87,17 @@ func run(ctx context.Context, cmd string, args []string) error {
 				return err
 			}
 		}
-		return web.New(pool, store, os.Getenv("FEED_TOKEN")).ListenAndServe(ctx, ":"+port)
+		c, err := cast.Load()
+		if err != nil {
+			return err
+		}
+		return web.New(pool, c, store, os.Getenv("FEED_TOKEN")).ListenAndServe(ctx, ":"+port)
 	}
 	if cmd == "add-test-render" {
 		return addTestRender(ctx, pool, args)
+	}
+	if cmd == "auditions" {
+		return runAuditions(ctx, pool, args)
 	}
 	return nil
 }
@@ -112,4 +124,32 @@ func addTestRender(ctx context.Context, pool *pgxpool.Pool, args []string) error
 	}
 	fmt.Printf("added render %d; it's in the feed now\n", id)
 	return nil
+}
+
+func runAuditions(ctx context.Context, pool *pgxpool.Pool, args []string) error {
+	fs := flag.NewFlagSet("auditions", flag.ContinueOnError)
+	o := auditions.Options{Out: os.Stdout}
+	fs.StringVar(&o.Host, "host", "", "only this host (slug); default all")
+	fs.StringVar(&o.Model, "model", elevenlabs.DefaultModel, "ElevenLabs model")
+	fs.BoolVar(&o.DryRun, "dry-run", false, "show what would be rendered, spend nothing")
+	if err := fs.Parse(args); err != nil {
+		return err
+	}
+	c, err := cast.Load()
+	if err != nil {
+		return err
+	}
+	var (
+		store *storage.Store
+		tts   *elevenlabs.Client
+	)
+	if !o.DryRun {
+		if store, err = storage.FromEnv(ctx); err != nil {
+			return err
+		}
+		if tts, err = elevenlabs.FromEnv(); err != nil {
+			return err
+		}
+	}
+	return auditions.Generate(ctx, pool, store, tts, c, o)
 }

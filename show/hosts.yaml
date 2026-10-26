@@ -2,6 +2,9 @@
 # Source of truth for the cast; not stored in Postgres. Topics and episodes
 # refer to pairings and guests by slug. Every script prompt receives only the
 # profiles of the hosts in that episode.
+#
+# audition_line and elevenlabs are the voice-casting shortlist from docs/hosts.md;
+# `podcastd auditions` renders every line in every listed voice.
 
 hosts:
   - slug: priya
@@ -18,6 +21,9 @@ hosts:
     blind_spot: Distrusts anything new until it has caused its first outage, so she can undersell genuinely better tools.
     never_says: '"It should be fine."'
     voice_casting: Lower-mid register, unhurried, deadpan delivery that makes the jokes land late.
+    audition_line: '4:12am. The queue depth graph goes vertical. Every service is retrying. Instantly. Forever. Because someone decided backoff was "a nice to have." So now we''re not having an outage. We''re hosting one. For ourselves. On-call opens the runbook. The runbook says, and I quote, "check the dashboard." Which dashboard. We have forty. Anyway. Two questions for any design. What pages you. And how long until it stops.'
+    elevenlabs:
+      - {pick: first, name: 'Florence – Atmospheric Storyteller', id: 22N9cF8z0o7y23njdyaY}
 
   - slug: marcus
     name: Marcus
@@ -33,6 +39,10 @@ hosts:
     blind_spot: Generalizes from his own two companies.
     never_says: '"It depends" without immediately saying what it depends on.'
     voice_casting: Warm, energetic, a bit of a grin in the voice; quicker pace than his partner.
+    audition_line: 'Here''s my hot take, and I''m going to say it with my whole chest: the service mesh is dead. Done. We spent three years drawing boxes and arrows, and what did we get? Forty services, one database, and a deploy that needs six people on a call. I lived it! I championed it! ...Dana''s already got a paper open, hasn''t she. Okay. Fine. Show me the number. If it''s a real number, I''ll take it.'
+    elevenlabs:
+      - {pick: first, name: 'Lawrence – Bright and Informative', id: ktkP7Nsj67dw2zcplQYt}
+      - {pick: alternate, name: 'Eddie – Natural and Helpful', id: l7kNoIfnJKPg7779LI2t}
 
   - slug: dana
     name: Dana
@@ -48,6 +58,10 @@ hosts:
     blind_spot: Can underweight the human and organizational cost of the correct solution; Marcus calls this out.
     never_says: '"Trust me."'
     voice_casting: Bright, clear mid-range, measured pace that speeds up when she's excited.
+    audition_line: 'So there''s a 2007 paper that says, roughly, your clocks are lying to you, and they''re lying in a very specific way. Two nodes, both certain it''s 10:00:01, both writing to the same key. And whoever "wins" depends on drift you never measured. Oh, I love this one, because the fix isn''t a better clock, it''s admitting you never had one. Which is why "eventually consistent" isn''t a design. It''s a confession.'
+    elevenlabs:
+      - {pick: first, name: 'Elara – Crisp Pro Narrator', id: WQP7cQUF5aAS6Axh5yaa}
+      - {pick: alternate, name: 'Jade – Upbeat and Natural', id: g7LVvkPWALzPxOQbF6OE}
 
   - slug: theo
     name: Theo
@@ -62,6 +76,10 @@ hosts:
     blind_spot: Analogies that go one step too far; Inès rates them.
     never_says: '"Obviously."'
     voice_casting: Easygoing, slightly lower register, natural laugh.
+    audition_line: 'Okay, so, wait. If I''m hearing this right, React''s render is kind of like the update step in a game loop? Every frame, you look at the world, you figure out what changed, you only redraw that. And if your update takes longer than sixteen milliseconds, the player feels it. So a slow render is basically... dropping frames on a form. Hah. How''s that one, Inès? Seven? I''ll take seven. That''s my best this month.'
+    elevenlabs:
+      - {pick: first, name: 'Warren – Effortless and Cool', id: 7QN34D2r3hCNwbOYIeK0}
+      - {pick: alternate, name: 'Sawyer – Midnight Storyteller', id: 8dEUmyPMdDdK91vboYih}
 
   - slug: ines
     name: Inès
@@ -77,6 +95,10 @@ hosts:
     blind_spot: Can treat performance as the goal when the team's real problem is complexity.
     never_says: '"Best practice" without saying whose and why.'
     voice_casting: Clear, articulate, mid-to-high register, quick but never rushed.
+    audition_line: 'Seven. Generous, but the frame-budget part was genuinely good. Here''s what''s actually happening: the click lands, React re-renders the whole product grid, two hundred and forty milliseconds of work, and the user sees nothing change for a quarter of a second. Nobody fixed it with useMemo. We measured first. Ninety percent of that time was one component formatting prices on every render. Measure, then memoize. Never the other way round.'
+    elevenlabs:
+      - {pick: first, name: 'Alicia – Polished Global Anchor', id: BFd5oBc2DDna33pSi4Gf}
+      - {pick: alternate, name: 'Jade – Upbeat and Natural', id: g7LVvkPWALzPxOQbF6OE}
 
   - slug: kofi
     name: Kofi
@@ -92,6 +114,11 @@ hosts:
     blind_spot: Can be too fatalistic about whether new tools genuinely change things.
     never_says: '"This time it''s different" (unless he''s mocking it).'
     voice_casting: Deep, resonant, unhurried, the steadiest voice in the cast.
+    audition_line: 'I''ve seen this before. At the bank, we had an enterprise service bus, and it was going to connect everything. And it did. It connected every team''s problems into one team''s problem. What''s different now? The tooling is better. Genuinely. But the question is the same one Priya asks second. She asks what pages you. I ask: who owns that? Because a migration without an owner... is a rumour.'
+    elevenlabs:
+      - {pick: first, name: 'Wyatt – Seasoned Mentor', id: FrS6cKLB1wg4WYgPa9GW}
+      - {pick: alternate, name: 'Darian – Warm Grounded Storyteller', id: gOupLcAkjEnguROwi4oS}
+      - {pick: alternate, name: 'Baxter – Dry Calm Aussie', id: jSuBIjxMKhqIfb0wCK1F}
 
   - slug: rachel
     name: Rachel
@@ -107,6 +134,10 @@ hosts:
     blind_spot: Can sand down an interesting idea into a safe one.
     never_says: '"Just." (As in "just add a cache.")'
     voice_casting: Warm mid-range, friendly but firm, conversational pace.
+    audition_line: 'Okay, I love this, but let me reframe it. Say I''m a team of six, with one on-call rotation, and this lands in my architecture review on Monday. What do I actually write down? Because if nobody on the team can explain the design to a new hire in ten minutes, it''s not the right design for us, however elegant it is. So: what''s reversible, what isn''t, and who signs off on the part that isn''t.'
+    elevenlabs:
+      - {pick: first, name: 'Talia – Warm Soft Guide', id: OZ0L6eISlOejga3XjDFt}
+      - {pick: alternate, name: 'Maisie – Friendly Casual Neighbor', id: QtY3JBOUKEB5xzrRfOKc}
 
   - slug: sam
     name: Sam
@@ -122,6 +153,10 @@ hosts:
     blind_spot: Everything is a threat model; can derail a performance conversation.
     never_says: '"Nobody would ever do that."'
     voice_casting: Lively, quick, playful; cast for contrast with whichever pair they join.
+    audition_line: 'Ooh, okay, this is a lovely API. So I''m a user, I''m logged in, all very legitimate. I fetch my invoice: slash invoices slash forty. And then, just out of curiosity, I change it to forty-one. And... hello, someone else''s invoice! The login was perfect. The authentication was flawless. Nobody checked whether invoice forty-one was mine. That''s authorization, and it''s where all the fun bugs live.'
+    elevenlabs:
+      - {pick: first, name: 'Callum – Husky Trickster', id: fs2OqxduwXgp9foh2xjK}
+      - {pick: alternate, name: 'Jade – Upbeat and Natural', id: g7LVvkPWALzPxOQbF6OE}
 
   - slug: mei
     name: Mei
@@ -137,6 +172,10 @@ hosts:
     blind_spot: Assumes scale problems that a small team may never have.
     never_says: '"We''ll version it later."'
     voice_casting: Bright, energetic, mid register, fast talker who slows down for the important bit.
+    audition_line: 'So the cache expires at exactly midnight, right, and at a billion requests a day... okay, okay, Jules, I see you counting, that''s one. But listen, every client misses at the same instant and hammers the database together. A thundering herd. We fixed it with jitter and request coalescing. And here''s the important bit. Slowly. Every write endpoint takes an idempotency key. Not optional. Not later. From day one.'
+    elevenlabs:
+      - {pick: first, name: 'Elowen – Upbeat Modern Narrator', id: dvbL7qkNGZY1IqPGZAjM}
+      - {pick: alternate, name: 'Jade – Upbeat and Natural', id: g7LVvkPWALzPxOQbF6OE}
 
   - slug: jules
     name: Jules
@@ -152,6 +191,10 @@ hosts:
     blind_spot: Underestimates problems they haven't hit yet; Mei calls it out.
     never_says: '"Enterprise-grade."'
     voice_casting: Easy, conversational, slightly higher energy than Mei; contrast in timbre matters more than gender.
+    audition_line: 'That''s two "billion requests," by the way. I''m keeping a tally. Look, I run two products with about four thousand users combined. Do I need a global caching layer? No. I need Postgres and a cron job, and that''s a weekend, tops. ...Although. The idempotency key thing. I got double-charged by my own checkout last month. So, fine, Mei. That one I''m stealing. Everything else stays boring.'
+    elevenlabs:
+      - {pick: first, name: 'Maisie – Friendly Casual Neighbor', id: QtY3JBOUKEB5xzrRfOKc}
+      - {pick: alternate, name: 'Eddie – Natural and Helpful', id: l7kNoIfnJKPg7779LI2t}
 
 pairings:
   - slug: dana-marcus

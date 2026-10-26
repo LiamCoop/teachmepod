@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Voice auditions · teachmepod</title>
+<style>
+  :root { color-scheme: light dark; --muted: #6b7280; --line: #d1d5db; --accent: #2563eb; --bg2: #f3f4f6; }
+  @media (prefers-color-scheme: dark) { :root { --muted: #9ca3af; --line: #374151; --accent: #60a5fa; --bg2: #1f2937; } }
+  body { font: 16px/1.5 system-ui, sans-serif; max-width: 52rem; margin: 0 auto; padding: 1rem; }
+  h1 { margin-bottom: .25rem; }
+  .lede, .meta { color: var(--muted); }
+  section.pair { border-top: 2px solid var(--line); margin-top: 2rem; padding-top: .5rem; }
+  .pair-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+  .host { margin: 1rem 0 1.5rem; }
+  .host h3 { margin: 0; }
+  details { margin: .25rem 0 .75rem; }
+  blockquote { margin: .5rem 0; padding-left: .75rem; border-left: 3px solid var(--line); }
+  .clip { background: var(--bg2); border-radius: .5rem; padding: .6rem .75rem; margin: .5rem 0; }
+  .clip-head { display: flex; justify-content: space-between; gap: .5rem; flex-wrap: wrap; }
+  .tag { font-size: .8rem; padding: 0 .4rem; border-radius: .25rem; border: 1px solid var(--line); }
+  .tag.shortlist { border-color: #16a34a; color: #16a34a; }
+  .tag.reject { border-color: #dc2626; color: #dc2626; text-decoration: line-through; }
+  audio { width: 100%; margin: .4rem 0; }
+  form { display: flex; gap: .4rem; flex-wrap: wrap; align-items: center; }
+  input[name=note] { flex: 1 1 12rem; padding: .35rem; }
+  button { padding: .35rem .7rem; cursor: pointer; }
+  .empty { color: var(--muted); font-style: italic; }
+</style>
+</head>
+<body>
+<h1>Voice auditions</h1>
+<p class="lede">Each host's audition line in their first-pick voice and alternates, grouped by pairing so you hear each pair together. "Play pair" plays the lead's then the foil's first pick, or the clips you've shortlisted.</p>
+
+{{range .Groups}}
+<section class="pair">
+  <div class="pair-head">
+    <h2>{{.Title}}</h2>
+    <span class="meta">{{.Friction}}</span>
+    {{if ne .Title "Guests"}}<button type="button" class="play-pair">▶ Play pair</button>{{end}}
+  </div>
+  {{range .Hosts}}
+  <div class="host" id="{{.Slug}}">
+    <h3>{{.Name}} <span class="meta">· {{.Pronouns}} · {{.Role}}</span></h3>
+    <div class="meta">{{.VoiceCasting}}</div>
+    <details><summary>Audition line</summary><blockquote>{{.AuditionLine}}</blockquote></details>
+    {{range .Clips}}
+    <div class="clip" data-pick="{{.Pick}}" data-verdict="{{.Verdict}}">
+      <div class="clip-head">
+        <strong>{{.VoiceName}}</strong>
+        <span><span class="tag">{{.Pick}}</span> {{if ne .Verdict "undecided"}}<span class="tag {{.Verdict}}">{{.Verdict}}</span>{{end}} <span class="meta">{{.DurationS}}s · {{.Model}}</span></span>
+      </div>
+      <audio controls preload="none" src="/auditions/{{$.Token}}/audio/{{.ID}}"></audio>
+      <form method="post" action="/auditions/{{$.Token}}/{{.ID}}">
+        <input name="note" value="{{.Note}}" placeholder="Note (e.g. too close to Elowen)">
+        <button name="verdict" value="shortlist">Shortlist</button>
+        <button name="verdict" value="reject">Reject</button>
+        {{if ne .Verdict "undecided"}}<button name="verdict" value="undecided">Clear</button>{{end}}
+      </form>
+    </div>
+    {{else}}
+    <p class="empty">No clips yet. Run <code>podcastd auditions</code>.</p>
+    {{end}}
+  </div>
+  {{end}}
+</section>
+{{end}}
+
+<script>
+// Play the lead's clip, then the foil's: a shortlisted clip if there is one, else the first pick.
+document.querySelectorAll('.play-pair').forEach(btn => btn.addEventListener('click', () => {
+  document.querySelectorAll('audio').forEach(a => a.pause());
+  const players = [...btn.closest('section').querySelectorAll('.host')].map(host =>
+    (host.querySelector('.clip[data-verdict=shortlist]') || host.querySelector('.clip[data-pick=first]'))?.querySelector('audio')
+  ).filter(Boolean);
+  const play = i => { if (i >= players.length) return; players[i].currentTime = 0; players[i].onended = () => play(i + 1); players[i].play(); };
+  play(0);
+}));
+</script>
+</body>
+</html>
